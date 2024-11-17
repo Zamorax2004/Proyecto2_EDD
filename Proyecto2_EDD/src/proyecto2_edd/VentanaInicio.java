@@ -71,7 +71,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        VentanaMain v2 = new VentanaMain();
+        VentanaMain v2 = new VentanaMain(FileStorage.getInstance().getFilename());
         this.dispose();
         v2.setVisible(true);
     }//GEN-LAST:event_nextActionPerformed
@@ -84,15 +84,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         fileChooser.addChoosableFileFilter(restrict);
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION){
-            //PLACEHOLDER++++++++++++++++++++++++++++++++++++++++++++++
-            java.io.File selectedFile = fileChooser.getSelectedFile();
+            File selectedFile = fileChooser.getSelectedFile();
             textField.setText(selectedFile.getName());
-            String fileName = selectedFile.getName();
-            if (fileName.equals("Targaryen.json")){
-                ;
-            }else if (fileName.equals("Baratheon.json")){
-                ;
-            }
+            FileStorage.getInstance().setFilename(selectedFile.getAbsolutePath());
         }else{
             System.out.println("Error");
         }

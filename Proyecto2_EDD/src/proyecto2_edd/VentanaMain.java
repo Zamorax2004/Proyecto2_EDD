@@ -9,12 +9,16 @@ package proyecto2_edd;
  * @author simon
  */
 public class VentanaMain extends javax.swing.JFrame {
-
+    private String fileName;
     /**
      * Creates new form VentanaMain
      */
-    public VentanaMain() {
+    public VentanaMain(String fileName) {
+        this.fileName = fileName;
         initComponents();
+        if (fileName != null){
+            handleJsonFile(fileName);
+        } 
     }
 
     /**
@@ -54,6 +58,13 @@ public class VentanaMain extends javax.swing.JFrame {
         v1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void handleJsonFile(String fileName){
+        if (fileName.contains("Targaryen.json")){
+            ;
+        }else if (fileName.contains("Baratheon.json")){
+            ;
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -84,7 +95,7 @@ public class VentanaMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaMain().setVisible(true);
+                new VentanaMain(FileStorage.getInstance().getFilename()).setVisible(true);
             }
         });
     }
