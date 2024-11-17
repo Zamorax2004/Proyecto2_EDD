@@ -11,12 +11,6 @@ public class NodeTree {
         this.brother = null;
     }
 
-    public NodeTree(Object element, NodeTree son, NodeTree brother) {
-        this.element = element;
-        this.son = son;
-        this.brother = brother;
-    }
-
     public Object getElement() {
         return element;
     }

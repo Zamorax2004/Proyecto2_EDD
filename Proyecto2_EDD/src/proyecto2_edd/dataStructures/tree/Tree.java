@@ -9,57 +9,55 @@ public class Tree {
         this.root = null;
     }
 
-    public boolean Add(String path, String element) {
+    public boolean add(String path, String element) {
         if (root == null) {
             root = new NodeTree(element);
             return true;
         } else {
-            NodeTree tmp = searchNode(path);
-            if (tmp == null) {
+            NodeTree parent = searchNode(path);
+            if (parent == null) {
                 return false;
             } else {
-                return AddSon(tmp, element);
+                return addSon(parent, element);
             }
         }
     }
 
-    public NodeTree searchNode(String thePath) {
-        NodeTree tmp1 = root;
-        StringTokenizer path = new StringTokenizer(thePath, "/");
-        String token;
-        while (path.hasMoreTokens()) {
-            token = path.nextToken();
-            while (tmp1 != null) {
-                if (token.equalsIgnoreCase((String) tmp1.getElement())) {
-                    break;
-                } else {
-                    tmp1 = tmp1.getBrother();
-                }
-            }
-            if (tmp1 == null) {
+    public NodeTree searchNode(String path) {
+        NodeTree currentNode = root;
+        StringTokenizer tokenizer = new StringTokenizer(path, "/");
+        while (tokenizer.hasMoreTokens()) {
+            String token = tokenizer.nextToken();
+            currentNode = findChild(currentNode, token);
+            if (currentNode == null) {
                 return null;
-            } else {
-                tmp1 = tmp1.getSon();
             }
+            currentNode = currentNode.getSon();
         }
-        return tmp1;
+        return currentNode;
     }
 
-    private boolean AddSon(NodeTree father, String element) {
-        NodeTree tmp = father.getSon();
-        if (tmp == null) {
-            father.setSon(new NodeTree(element, null, null));
-        } else {
-            NodeTree brotherTmp = tmp.getBrother();
-            if (brotherTmp == null) {
-                tmp.setBrother(new NodeTree(element, null, null));
-            } else {
-                while (brotherTmp.getBrother() != null) {
-                    tmp = brotherTmp;
-                    brotherTmp = brotherTmp.getBrother();
-                }
-                brotherTmp.setBrother(new NodeTree(element, null, null));
+    private NodeTree findChild(NodeTree node, String element) {
+        NodeTree current = node;
+        while (current != null) {
+            if (element.equals(current.getElement())) {
+                return current;
             }
+            current = current.getBrother();
+        }
+        return null;
+    }
+
+    private boolean addSon(NodeTree parent, String element) {
+        NodeTree newSon = new NodeTree(element);
+        if (parent.getSon() == null) {
+            parent.setSon(newSon);
+        } else {
+            NodeTree current = parent.getSon();
+            while (current.getBrother() != null) {
+                current = current.getBrother();
+            }
+            current.setBrother(newSon);
         }
         return true;
     }
@@ -68,11 +66,11 @@ public class Tree {
         print(root, " ");
     }
 
-    private void print(NodeTree node, String tab) {
+    private void print(NodeTree node, String indent) {
         if (node != null) {
-            System.out.println(tab + node.getElement());
-            print(node.getSon(), tab + " ");
-            print(node.getBrother(), tab);
+            System.out.println(indent + node.getElement());
+            print(node.getSon(), indent + " ");
+            print(node.getBrother(), indent);
         }
     }
 }

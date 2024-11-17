@@ -8,15 +8,26 @@ import java.io.FileReader;
 
 public class JsonToGeneralTree {
     public static void main(String[] args) {
-        String content = readFile("Proyecto2_EDD/Proyecto2_EDD/Baratheon.json");
-        if (content != null) {
-            Tree tree = new Tree();
-            try {
-                JSONObject jsonObject = new JSONObject(new JSONTokener(content));
-                buildTree(jsonObject, tree, "House Baratheon");
-                tree.printTree();
-            } catch (Exception e) {
-                System.out.println("Error parsing JSON: " + e.getMessage());
+        String[] files = {"Proyecto2_EDD/Proyecto2_EDD/Baratheon.json", "Proyecto2_EDD/Proyecto2_EDD/Targaryen.json"};
+        for (String file : files) {
+            String content = readFile(file);
+            if (content != null) {
+                Tree tree = new Tree();
+                try {
+                    JSONObject jsonObject = new JSONObject(new JSONTokener(content));
+                    String rootName = jsonObject.keys().next();
+                    tree.add("", rootName);
+                    Object rootElement = jsonObject.get(rootName);
+                    if (rootElement instanceof JSONArray) {
+                        buildTree((JSONArray) rootElement, tree, rootName);
+                    } else if (rootElement instanceof JSONObject) {
+                        buildTree((JSONObject) rootElement, tree, rootName);
+                    }
+                    System.out.println("Tree for " + file + ":");
+                    tree.printTree();
+                } catch (Exception e) {
+                    System.out.println("Error parsing JSON from " + file + ": " + e.getMessage());
+                }
             }
         }
     }
@@ -41,11 +52,13 @@ public class JsonToGeneralTree {
         for (String key : jsonObject.keySet()) {
             Object value = jsonObject.get(key);
             String uniqueKey = getUniqueKey(tree, rootName, key);
-            tree.Add(rootName, uniqueKey);
+            tree.add(rootName, uniqueKey);
             if (value instanceof JSONArray) {
                 buildTree((JSONArray) value, tree, rootName + "/" + uniqueKey);
             } else if (value instanceof JSONObject) {
                 buildTree((JSONObject) value, tree, rootName + "/" + uniqueKey);
+            } else {
+                tree.add(rootName + "/" + uniqueKey, value.toString());
             }
         }
     }
@@ -55,6 +68,10 @@ public class JsonToGeneralTree {
             Object value = jsonArray.get(i);
             if (value instanceof JSONObject) {
                 buildTree((JSONObject) value, tree, rootName);
+            } else if (value instanceof JSONArray) {
+                buildTree((JSONArray) value, tree, rootName);
+            } else {
+                tree.add(rootName, value.toString());
             }
         }
     }
