@@ -64,43 +64,37 @@ public class List implements IList {
 
     @Override
     public NodeList insertInIndex(Object element, int index) {
-        NodeList node = new NodeList(element);
-        if (isEmpty()) {
-            setHead(node);
-            size++;
-        } else {
-            if (index < 0) {
-                System.out.println("Error, invalid index");
-            } else if (index > size) {
-                System.out.println("Error, index out of range");
-            } else if (index == 0) {
-                insertBegin(element);
-            } else if (index == size) {
-                insertFinal(element);
-            } else {
-                NodeList pointer = getHead();
-                int aux = 0;
-                while (pointer.getNext() != null && aux < index - 1) {
-                    pointer = pointer.getNext();
-                    aux++;
-                }
-                node.setNext(pointer.getNext());
-                pointer.setNext(node);
-                size++;
-            }
+        if (index < 0 || index > size) {
+            System.out.println("Error, index out of range");
+            return null;
         }
-        return node;
+        if (index == 0) {
+            return insertBegin(element);
+        } else if (index == size) {
+            return insertFinal(element);
+        } else {
+            NodeList node = new NodeList(element);
+            NodeList pointer = getHead();
+            for (int i = 0; i < index - 1; i++) {
+                pointer = pointer.getNext();
+            }
+            node.setNext(pointer.getNext());
+            pointer.setNext(node);
+            size++;
+            return node;
+        }
     }
 
     @Override
     public NodeList deleteBegin() {
         if (isEmpty()) {
-            System.out.println("Error, list in empty");
+            System.out.println("Error, list is empty");
             return null;
         } else {
             NodeList pointer = getHead();
             setHead(pointer.getNext());
             pointer.setNext(null);
+            size--;
             return pointer;
         }
     }
@@ -112,6 +106,11 @@ public class List implements IList {
             return null;
         } else {
             NodeList pointer = getHead();
+            if (pointer.getNext() == null) {
+                setHead(null);
+                size--;
+                return pointer;
+            }
             while (pointer.getNext().getNext() != null) {
                 pointer = pointer.getNext();
             }
@@ -124,52 +123,39 @@ public class List implements IList {
 
     @Override
     public NodeList deleteInIndex(int index) {
-        if (isEmpty()) {
-            System.out.println("Error, list is empty");
-        } else {
-            if (index < 0) {
-                System.out.println("Error, list is empty.");
-            } else if (index > size) {
-                System.out.println("Error, index out of range.");
-            } else if (index == 0) {
-                return deleteBegin();
-            } else if (index == size - 1) {
-                return deleteFinal();
-            } else {
-                NodeList pointer = getHead();
-                int aux = 0;
-                while (pointer.getNext() != null && aux < index - 1) {
-                    pointer = pointer.getNext();
-                    aux++;
-                }
-                NodeList pointerAux = pointer.getNext();
-                pointer.setNext(pointerAux.getNext());
-                pointerAux.setNext(null);
-                size--;
-                return pointerAux;
-            }
+        if (index < 0 || index >= size) {
+            System.out.println("Error, index out of range");
+            return null;
         }
-        return null;
+        if (index == 0) {
+            return deleteBegin();
+        } else if (index == size - 1) {
+            return deleteFinal();
+        } else {
+            NodeList pointer = getHead();
+            for (int i = 0; i < index - 1; i++) {
+                pointer = pointer.getNext();
+            }
+            NodeList temp = pointer.getNext();
+            pointer.setNext(temp.getNext());
+            temp.setNext(null);
+            size--;
+            return temp;
+        }
     }
 
     public void print() {
         NodeList pointer = getHead();
         while (pointer != null) {
-            System.out.print("["+pointer.getElement()+"]");
+            System.out.print("[" + pointer.getElement() + "]");
             pointer = pointer.getNext();
         }
+        System.out.println();
     }
 
     @Override
     public void deleteAll() {
-        if (isEmpty()) {
-            System.out.println("Error, list is empty");
-        } else {
-            NodeList pointer = getHead();
-            pointer.setElement(null);
-            pointer.setNext(null);
-            setHead(pointer);
-            size = 0;
-        }
+        head = null;
+        size = 0;
     }
 }

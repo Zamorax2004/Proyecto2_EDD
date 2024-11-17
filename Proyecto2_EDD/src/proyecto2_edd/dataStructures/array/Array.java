@@ -47,21 +47,21 @@ public class Array implements IList {
         this.maxSize = maxSize;
     }
 
-    public int transformIndex(int index) {
-        if (index > 0) {
+    private int transformIndex(int index) {
+        if (index >= 0) {
             return index;
         } else {
-            return maxSize - 1 + index;
+            return maxSize + index;
         }
     }
 
-    public NodeArray[] cloneArray() {
+    private NodeArray[] cloneArray() {
         NodeArray[] newArray = new NodeArray[getArray().length + 1];
         System.arraycopy(getArray(), 0, newArray, 0, getArray().length);
         return newArray;
     }
 
-    public int searchSpace() {
+    private int searchSpace() {
         for (int i = 0; i < getArray().length; i++) {
             if (getArray()[i] == null) {
                 return i;
@@ -74,7 +74,7 @@ public class Array implements IList {
     public NodeArray insertBegin(Object element) {
         NodeArray node = new NodeArray(element);
         if (getSize() >= getMaxSize()) {
-            System.out.println("El maximo tamaño he sido alcanzado.");
+            System.out.println("Error, max size reached.");
             return null;
         } else {
             int position = searchSpace();
@@ -89,6 +89,7 @@ public class Array implements IList {
                 getArray()[position] = node;
                 setHead(position);
             }
+            size++;
             return node;
         }
     }
@@ -97,11 +98,11 @@ public class Array implements IList {
     public NodeArray insertFinal(Object element) {
         NodeArray node = new NodeArray(element);
         if (getSize() >= getMaxSize()) {
-            System.out.println("Error, max size reach.");
+            System.out.println("Error, max size reached.");
             return null;
         } else {
             if (isEmpty()) {
-                insertBegin(element);
+                return insertBegin(element);
             } else {
                 int position = searchSpace();
                 if (position == -1) {
@@ -130,15 +131,16 @@ public class Array implements IList {
     @Override
     public NodeArray insertInIndex(Object element, int index) {
         if (isEmpty()) {
-            insertBegin(element);
+            return insertBegin(element);
         } else {
             index = transformIndex(index);
             if (index > size) {
                 System.out.println("Error, index out of range");
+                return null;
             } else if (index == size) {
-                insertFinal(element);
+                return insertFinal(element);
             } else if (index == 0) {
-                insertBegin(element);
+                return insertBegin(element);
             } else {
                 NodeArray node = new NodeArray(element);
                 int position = searchSpace();
@@ -157,13 +159,12 @@ public class Array implements IList {
                 return node;
             }
         }
-        return null;
     }
 
     @Override
     public NodeArray deleteBegin() {
         if (isEmpty()) {
-            System.out.println("Tha list is empty.");
+            System.out.println("Error, list is empty.");
             return null;
         } else {
             NodeArray pointer = getArray()[getHead()];
@@ -173,17 +174,15 @@ public class Array implements IList {
             size--;
             return pointer;
         }
-
     }
 
     @Override
     public NodeArray deleteFinal() {
         if (isEmpty()) {
-            System.out.println("The list is empty");
+            System.out.println("Error, list is empty.");
             return null;
         } else {
             Integer pointer = getHead();
-            Integer nextNode = getArray()[pointer].getNext();
             while (getArray()[getArray()[pointer].getNext()].getNext() != null) {
                 pointer = getArray()[pointer].getNext();
             }
@@ -197,24 +196,19 @@ public class Array implements IList {
     }
 
     @Override
-    public boolean isEmpty() {
-        return getHead() == null;
-    }
-
-    @Override
-    public Object deleteInIndex(int index) {
+    public NodeArray deleteInIndex(int index) {
         if (isEmpty()) {
-            System.out.println("Error, list is empty");
+            System.out.println("Error, list is empty.");
             return null;
         } else {
             index = transformIndex(index);
-            if (index < 0 || index > maxSize) {
-                System.out.println("Error, index out of range");
+            if (index < 0 || index >= size) {
+                System.out.println("Error, index out of range.");
                 return null;
             }
             if (index == 0) {
                 return deleteBegin();
-            } else if (index == maxSize - 1) {
+            } else if (index == size - 1) {
                 return deleteFinal();
             } else {
                 NodeArray current = getArray()[getHead()];
@@ -230,6 +224,11 @@ public class Array implements IList {
         }
     }
 
+    @Override
+    public boolean isEmpty() {
+        return getHead() == null;
+    }
+
     public void print() {
         Integer pointer = getHead();
         while (pointer != null) {
@@ -240,7 +239,9 @@ public class Array implements IList {
 
     public void printSecuencial() {
         for (NodeArray array1 : getArray()) {
-            System.out.println("[" + array1.getElement() + "]");
+            if (array1 != null) {
+                System.out.println("[" + array1.getElement() + "]");
+            }
         }
     }
 

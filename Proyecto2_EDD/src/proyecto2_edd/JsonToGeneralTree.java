@@ -66,10 +66,11 @@ public class JsonToGeneralTree {
     private static void buildTree(JSONArray jsonArray, Tree tree, String rootName) {
         for (int i = 0; i < jsonArray.length(); i++) {
             Object value = jsonArray.get(i);
+            String uniqueKey = rootName + "/" + i;
             if (value instanceof JSONObject) {
-                buildTree((JSONObject) value, tree, rootName);
+                buildTree((JSONObject) value, tree, uniqueKey);
             } else if (value instanceof JSONArray) {
-                buildTree((JSONArray) value, tree, rootName);
+                buildTree((JSONArray) value, tree, uniqueKey);
             } else {
                 tree.add(rootName, value.toString());
             }
