@@ -1,8 +1,6 @@
 package proyecto2_edd.dataStructures.tree;
 
-import java.sql.SQLOutput;
 import java.util.StringTokenizer;
-import java.util.StringTokenizer.*;
 
 public class Tree {
     private NodeTree root;
