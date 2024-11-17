@@ -4,6 +4,7 @@
  */
 package proyecto2_edd;
 
+import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
