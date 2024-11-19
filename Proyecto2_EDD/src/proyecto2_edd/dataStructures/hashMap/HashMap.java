@@ -22,6 +22,10 @@ public class HashMap<K, V> {
         this.size = 0;
     }
 
+    public Array getTable() {
+        return table;
+    }
+
     private int hash(K key) {
         return Math.abs(key.hashCode()) % capacity;
     }
