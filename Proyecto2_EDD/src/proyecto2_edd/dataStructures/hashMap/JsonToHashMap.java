@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import java.io.FileReader;
 import java.io.IOException;
-import proyecto2_edd.dataStructures.array.NodeArray;
 import proyecto2_edd.dataStructures.list.List;
 
 public class JsonToHashMap {
@@ -26,7 +25,25 @@ public class JsonToHashMap {
                 JSONArray members = jsonObject.getJSONArray(house);
                 for (int i = 0; i < members.length(); i++) {
                     JSONObject member = members.getJSONObject(i);
-
+                    String memberName = member.keys().next();
+                    FamilyMember familyMember = new FamilyMember(memberName);
+                    JSONArray attributes = member.getJSONArray(memberName);
+                    for (int j = 0; j < attributes.length(); j++) {
+                        JSONObject attribute = attributes.getJSONObject(j);
+                        if (attribute.has("Father to")) {
+                            JSONArray children = attribute.getJSONArray("Father tp");
+                            for (int k = 0; k < children.length(); k++) {
+                                familyMember.addChild(children.getString(k));
+                            }
+                        }
+                        if (attribute.has("Born to")) {
+                            familyMember.setParent(attribute.getString("Born to"));
+                        }
+                        if (attribute.has("Known throughout as")) {
+                            familyMember.setAlias(attribute.getString("Known throughout as"));
+                        }
+                    }
+                    familyMap.put(memberName, familyMember);
                 }
             });
         } catch (IOException e) {
@@ -40,7 +57,7 @@ public class JsonToHashMap {
         private String alias;
         private List children;
 
-        public FamilyMember(String name, String parent, String alias) {
+        public FamilyMember(String name) {
             this.name = name;
             this.children = new List();
         }
