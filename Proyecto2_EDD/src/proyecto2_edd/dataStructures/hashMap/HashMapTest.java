@@ -10,11 +10,27 @@ import java.io.IOException;
 public class HashMapTest {
 
     public static void main(String[] args) {
-        String[] files = {"Proyecto2_EDD/Proyecto2_EDD/Baratheon.json", "Proyecto2_EDD/Proyecto2_EDD/Targaryen.json"};
-        for (String file : files) {
-            processFile(file);
-        }
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("key1", "value1");
+        hashMap.put("key2", "value2");
+        hashMap.put("key3", "value3");
+
+        System.out.println("key1: " + hashMap.get("key1"));
+        System.out.println("key2: " + hashMap.get("key2"));
+        System.out.println("key3: " + hashMap.get("key3"));
+
+        hashMap.remove("key2");
+        System.out.println("key2 after removal: " + hashMap.get("key2"));
     }
+
+/*
+/    public static void main(String[] args) {
+/        String[] files = {"Proyecto2_EDD/Proyecto2_EDD/Baratheon.json", "Proyecto2_EDD/Proyecto2_EDD/Targaryen.json"};
+/        for (String file : files) {
+/            processFile(file);
+/        }
+/    }
+*/
 
     static void processFile(String filePath) {
         try (FileReader reader = new FileReader(filePath)) {

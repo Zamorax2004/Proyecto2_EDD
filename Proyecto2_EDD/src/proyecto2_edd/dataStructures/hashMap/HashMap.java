@@ -35,7 +35,7 @@ public class HashMap<K, V> {
     }
 
     private HashMapNode<K, V> unwrapNode(NodeArray nodeArray) {
-        return (HashMapNode<K, V>) nodeArray.getElement();
+        return nodeArray != null ? (HashMapNode<K, V>) nodeArray.getElement() : null;
     }
 
     public void put(K key, V value) {
@@ -116,7 +116,7 @@ public class HashMap<K, V> {
             while (node != null) {
                 HashMapNode<K, V> currentNode = unwrapNode(node);
                 int index = Math.abs(currentNode.getKey().hashCode()) % capacity;
-                NodeArray nextNode = wrapNode(currentNode.getNext());
+                NodeArray nextNode = node.getNext() != null ? (NodeArray) table.getArray()[node.getNext()] : null;
                 currentNode.setNext(unwrapNode((NodeArray) newTable.getArray()[index]));
                 newTable.getArray()[index] = wrapNode(currentNode);
                 node = nextNode;

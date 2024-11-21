@@ -31,7 +31,7 @@ public class JsonToHashMap {
                     for (int j = 0; j < attributes.length(); j++) {
                         JSONObject attribute = attributes.getJSONObject(j);
                         if (attribute.has("Father to")) {
-                            JSONArray children = attribute.getJSONArray("Father tp");
+                            JSONArray children = attribute.getJSONArray("Father to");
                             for (int k = 0; k < children.length(); k++) {
                                 familyMember.addChild(children.getString(k));
                             }
@@ -92,10 +92,10 @@ public class JsonToHashMap {
 
         @Override
         public String toString() {
-            return "FamiliMember{" +
-                    "name=" + name + '\'' +
-                    ", parent=" + parent + '\'' +
-                    ", alias=" + alias + '\'' +
+            return "FamilyMember{" +
+                    "name='" + name + '\'' +
+                    ", parent='" + parent + '\'' +
+                    ", alias='" + alias + '\'' +
                     ", children=" + children +
                     '}';
         }
