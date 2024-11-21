@@ -4,17 +4,23 @@
  */
 package proyecto2_edd;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
+
 /**
  *
  * @author simon
  */
 public class VentanaInicio extends javax.swing.JFrame {
-
+    private File selectedFile;
     /**
      * Creates new form VentanaInicio
      */
     public VentanaInicio() {
         initComponents();
+        textField.setEditable(false);
     }
 
     /**
@@ -29,6 +35,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         next = new javax.swing.JButton();
+        jFileChooser = new javax.swing.JButton();
+        textField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -48,16 +56,41 @@ public class VentanaInicio extends javax.swing.JFrame {
         });
         jPanel1.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 70, 30));
 
+        jFileChooser.setText("Escoger archivo");
+        jFileChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileChooserActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jFileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, -1, -1));
+        jPanel1.add(textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 120, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        VentanaMain v2 = new VentanaMain();
+        VentanaMain v2 = new VentanaMain(FileStorage.getInstance().getFilename());
         this.dispose();
         v2.setVisible(true);
     }//GEN-LAST:event_nextActionPerformed
+
+    private void jFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooserActionPerformed
+        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setDialogTitle("Elige un archivo .json");
+        FileNameExtensionFilter restrict = new FileNameExtensionFilter("Solo archivos .json", "json");
+        fileChooser.addChoosableFileFilter(restrict);
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION){
+            File selectedFile = fileChooser.getSelectedFile();
+            textField.setText(selectedFile.getName());
+            FileStorage.getInstance().setFilename(selectedFile.getAbsolutePath());
+        }else{
+            System.out.println("Error");
+        }
+    }//GEN-LAST:event_jFileChooserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,7 +129,9 @@ public class VentanaInicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
+    private javax.swing.JButton jFileChooser;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton next;
+    private javax.swing.JTextField textField;
     // End of variables declaration//GEN-END:variables
 }
