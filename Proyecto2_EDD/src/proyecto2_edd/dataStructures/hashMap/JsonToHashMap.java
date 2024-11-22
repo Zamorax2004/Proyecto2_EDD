@@ -10,7 +10,7 @@ import proyecto2_edd.dataStructures.list.List;
 public class JsonToHashMap {
 
     public static void main(String[] args) {
-        String[] files = {"Proyecto2_EDD/Proyecto2_EDD/Baratheon.json", "Proyecto2_EDD/Proyecto2_EDD/Targaryen.json"};
+        String[] files = {"Proyecto2_EDD/Proyecto2_EDD/resources/Baratheon.json", "Proyecto2_EDD/Proyecto2_EDD/resources/Targaryen.json"};
         for (String file : files) {
             processFile(file);
         }

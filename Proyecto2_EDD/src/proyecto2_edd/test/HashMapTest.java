@@ -1,5 +1,7 @@
-package proyecto2_edd.dataStructures.hashMap;
+package proyecto2_edd.test;
 
+import proyecto2_edd.dataStructures.hashMap.HashMap;
+import proyecto2_edd.dataStructures.hashMap.HashMapNode;
 import proyecto2_edd.dataStructures.tree.Tree;
 import proyecto2_edd.dataStructures.array.NodeArray;
 import org.json.JSONObject;
