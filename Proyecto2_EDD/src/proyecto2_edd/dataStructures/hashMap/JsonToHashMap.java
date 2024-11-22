@@ -46,58 +46,13 @@ public class JsonToHashMap {
                     familyMap.put(memberName, familyMember);
                 }
             });
+            // Print the familyMap to verify the data
+            System.out.println("Family Map for file: " + filePath);
+            familyMap.getTable().print();
+            // Print each family member
+            familyMap.getTable().printSecuencial();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    static class FamilyMember {
-        private String name;
-        private String parent;
-        private String alias;
-        private List children;
-
-        public FamilyMember(String name) {
-            this.name = name;
-            this.children = new List();
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getParent() {
-            return parent;
-        }
-
-        public void setParent(String parent) {
-            this.parent = parent;
-        }
-
-        public String getAlias() {
-            return alias;
-        }
-
-        public void setAlias(String alias) {
-            this.alias = alias;
-        }
-
-        public List getChildren() {
-            return children;
-        }
-
-        public void addChild(String child) {
-            children.insertFinal(child);
-        }
-
-        @Override
-        public String toString() {
-            return "FamilyMember{" +
-                    "name='" + name + '\'' +
-                    ", parent='" + parent + '\'' +
-                    ", alias='" + alias + '\'' +
-                    ", children=" + children +
-                    '}';
         }
     }
 }

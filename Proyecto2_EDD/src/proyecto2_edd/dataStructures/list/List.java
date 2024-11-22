@@ -1,8 +1,6 @@
 package proyecto2_edd.dataStructures.list;
 
-import proyecto2_edd.dataStructures.IDataStructures.IList;
-
-public class List implements IList {
+public class List {
 
     private NodeList head;
     private int size;
@@ -28,12 +26,10 @@ public class List implements IList {
         this.size = size;
     }
 
-    @Override
     public boolean isEmpty() {
         return head == null;
     }
 
-    @Override
     public NodeList insertBegin(Object element) {
         NodeList node = new NodeList(element);
         if (isEmpty()) {
@@ -46,7 +42,6 @@ public class List implements IList {
         return node;
     }
 
-    @Override
     public NodeList insertFinal(Object element) {
         NodeList node = new NodeList(element);
         if (isEmpty()) {
@@ -62,7 +57,6 @@ public class List implements IList {
         return node;
     }
 
-    @Override
     public NodeList insertInIndex(Object element, int index) {
         if (index < 0 || index > size) {
             System.out.println("Error, index out of range");
@@ -85,7 +79,6 @@ public class List implements IList {
         }
     }
 
-    @Override
     public NodeList deleteBegin() {
         if (isEmpty()) {
             System.out.println("Error, list is empty");
@@ -99,7 +92,6 @@ public class List implements IList {
         }
     }
 
-    @Override
     public NodeList deleteFinal() {
         if (isEmpty()) {
             System.out.println("Error, list is empty");
@@ -121,7 +113,6 @@ public class List implements IList {
         }
     }
 
-    @Override
     public NodeList deleteInIndex(int index) {
         if (index < 0 || index >= size) {
             System.out.println("Error, index out of range");
@@ -153,9 +144,20 @@ public class List implements IList {
         System.out.println();
     }
 
-    @Override
     public void deleteAll() {
         head = null;
         size = 0;
+    }
+
+    public Object get (int index) {
+        if (index < 0 || index >= size) {
+            System.out.println("Index out of range");
+            return null;
+        }
+        NodeList pointer = getHead();
+        for (int i = 0; i < index; i++) {
+            pointer = pointer.getNext();
+        }
+        return pointer.getElement();
     }
 }

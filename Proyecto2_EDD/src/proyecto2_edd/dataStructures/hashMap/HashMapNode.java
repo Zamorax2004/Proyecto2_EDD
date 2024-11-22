@@ -34,4 +34,9 @@ public class HashMapNode<K, V> {
     public void setNext(HashMapNode<K, V> next) {
         this.next = next;
     }
+
+    @Override
+    public String toString() {
+        return "key: " + key + ", value: " + value;
+    }
 }

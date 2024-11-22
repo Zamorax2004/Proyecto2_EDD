@@ -1,8 +1,6 @@
 package proyecto2_edd.dataStructures.array;
 
-import proyecto2_edd.dataStructures.IDataStructures.IList;
-
-public class Array implements IList {
+public class Array {
 
     private Integer head;
     private NodeArray[] array;
@@ -70,7 +68,6 @@ public class Array implements IList {
         return -1;
     }
 
-    @Override
     public NodeArray insertBegin(Object element) {
         NodeArray node = new NodeArray(element);
         if (getSize() >= getMaxSize()) {
@@ -94,7 +91,6 @@ public class Array implements IList {
         }
     }
 
-    @Override
     public NodeArray insertFinal(Object element) {
         NodeArray node = new NodeArray(element);
         if (getSize() >= getMaxSize()) {
@@ -128,7 +124,6 @@ public class Array implements IList {
         }
     }
 
-    @Override
     public NodeArray insertInIndex(Object element, int index) {
         if (isEmpty()) {
             return insertBegin(element);
@@ -161,7 +156,6 @@ public class Array implements IList {
         }
     }
 
-    @Override
     public NodeArray deleteBegin() {
         if (isEmpty()) {
             System.out.println("Error, list is empty.");
@@ -176,7 +170,6 @@ public class Array implements IList {
         }
     }
 
-    @Override
     public NodeArray deleteFinal() {
         if (isEmpty()) {
             System.out.println("Error, list is empty.");
@@ -195,7 +188,6 @@ public class Array implements IList {
         }
     }
 
-    @Override
     public NodeArray deleteInIndex(int index) {
         if (isEmpty()) {
             System.out.println("Error, list is empty.");
@@ -224,28 +216,26 @@ public class Array implements IList {
         }
     }
 
-    @Override
     public boolean isEmpty() {
         return getHead() == null;
     }
 
     public void print() {
-        Integer pointer = getHead();
+        Integer pointer = head;
         while (pointer != null) {
-            System.out.println("[" + getArray()[pointer].getElement() + "]");
-            pointer = getArray()[pointer].getNext();
+            System.out.println("[" + array[pointer].getElement() + "]");
+            pointer = array[pointer].getNext();
         }
     }
 
     public void printSecuencial() {
         for (NodeArray array1 : getArray()) {
             if (array1 != null) {
-                System.out.println("[" + array1.getElement() + "]");
+                System.out.println(array1.getElement().toString());
             }
         }
     }
 
-    @Override
     public void deleteAll() {
         head = null;
         size = 0;
