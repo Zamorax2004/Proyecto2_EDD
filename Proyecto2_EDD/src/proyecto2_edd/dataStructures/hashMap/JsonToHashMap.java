@@ -42,8 +42,12 @@ public class JsonToHashMap {
             if (attribute.has("Father to")) {
                 processChildren(attribute.getJSONArray("Father to"), familyMember);
             }
-            if (attribute.has("Born to")) {
-                familyMember.setParent(attribute.getString("Born to"));
+            if (attribute.has("Born to") && !attribute.getString("Born to").equals("[Unknown]")) {
+                if (familyMember.getParent().equals("[Unknown]")) {
+                    familyMember.setParent(attribute.getString("Born to"));
+                } else {
+                    familyMember.setMother(attribute.getString("Born to"));
+                }
             }
             if (attribute.has("Known throughout as")) {
                 familyMember.setAlias(attribute.getString("Known throughout as"));

@@ -35,7 +35,7 @@ public class GenealogicalTree {
 
         // Add root nodes first
         for (FamilyMember member : members) {
-            if (member.getParent().equals("[Unknown]")) {
+            if (member.getParent().equals("[Unknown]") && member.getMother().equals("[Unknown]")) {
                 try {
                     tree.add("/", member.getName());
                 } catch (TreeException e) {
@@ -49,6 +49,13 @@ public class GenealogicalTree {
             if (!member.getParent().equals("[Unknown]")) {
                 try {
                     tree.add("/" + member.getParent(), member.getName());
+                } catch (TreeException e) {
+                    System.err.println("Error processing member: " + member.getName() + " - " + e.getMessage());
+                }
+            }
+            if (!member.getMother().equals("[Unknown]")) {
+                try {
+                    tree.add("/" + member.getMother(), member.getName());
                 } catch (TreeException e) {
                     System.err.println("Error processing member: " + member.getName() + " - " + e.getMessage());
                 }

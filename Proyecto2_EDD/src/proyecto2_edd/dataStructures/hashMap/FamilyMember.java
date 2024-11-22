@@ -1,30 +1,27 @@
 package proyecto2_edd.dataStructures.hashMap;
 
-import java.util.ArrayList;
-import java.util.List;
+import proyecto2_edd.dataStructures.array.Array;
+import proyecto2_edd.dataStructures.array.NodeArray;
 
 public class FamilyMember {
     private String name;
     private String parent;
+    private String mother;
     private String alias;
-    private List<String> children;
     private int hierarchy;
+    private Array children;
 
     public FamilyMember(String name) {
         this.name = name;
         this.parent = "[Unknown]";
+        this.mother = "[Unknown]";
         this.alias = "";
-        this.children = new ArrayList<>();
         this.hierarchy = 0;
+        this.children = new Array(10); // Inicializamos con un tamaño máximo de 10, puede ajustarse según sea necesario
     }
 
-    // Getters and setters for all fields, including hierarchy
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getParent() {
@@ -35,6 +32,14 @@ public class FamilyMember {
         this.parent = parent;
     }
 
+    public String getMother() {
+        return mother;
+    }
+
+    public void setMother(String mother) {
+        this.mother = mother;
+    }
+
     public String getAlias() {
         return alias;
     }
@@ -43,19 +48,19 @@ public class FamilyMember {
         this.alias = alias;
     }
 
-    public List<String> getChildren() {
-        return children;
-    }
-
-    public void addChild(String child) {
-        this.children.add(child);
-    }
-
     public int getHierarchy() {
         return hierarchy;
     }
 
     public void setHierarchy(int hierarchy) {
         this.hierarchy = hierarchy;
+    }
+
+    public Array getChildren() {
+        return children;
+    }
+
+    public void addChild(String child) {
+        this.children.insertFinal(child);
     }
 }
