@@ -32,6 +32,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        fileTest = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -47,6 +48,13 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, 30));
 
+        fileTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileTestActionPerformed(evt);
+            }
+        });
+        jPanel1.add(fileTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 30, 110, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 410));
 
         pack();
@@ -57,6 +65,10 @@ public class VentanaMain extends javax.swing.JFrame {
         this.dispose();
         v1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void fileTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileTestActionPerformed
+        fileTest.setText(fileName);
+    }//GEN-LAST:event_fileTestActionPerformed
 
     public void handleJsonFile(String fileName){
         if (fileName.contains("Targaryen.json")){
@@ -101,6 +113,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField fileTest;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

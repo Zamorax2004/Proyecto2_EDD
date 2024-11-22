@@ -71,9 +71,13 @@ public class VentanaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        VentanaMain v2 = new VentanaMain(FileStorage.getInstance().getFilename());
-        this.dispose();
-        v2.setVisible(true);
+        if (FileStorage.getInstance().getFilename() == null){
+            textField.setText("Seleccione un archivo!");
+        }else{
+            VentanaMain v2 = new VentanaMain(FileStorage.getInstance().getFilename());
+            this.dispose();
+            v2.setVisible(true);
+        }
     }//GEN-LAST:event_nextActionPerformed
 
     private void jFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooserActionPerformed
