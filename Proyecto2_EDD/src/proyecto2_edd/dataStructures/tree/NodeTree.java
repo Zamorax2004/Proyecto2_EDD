@@ -5,18 +5,10 @@ public class NodeTree {
     private NodeTree son;
     private NodeTree brother;
 
-    // Default constructor withouth sons or brothers
     public NodeTree(Object element) {
         this.element = element;
         this.son = null;
         this.brother = null;
-    }
-
-    // Constructor with 3 parameters
-    public NodeTree(Object element, NodeTree son, NodeTree brother) {
-        this.element = element;
-        this.son = son;
-        this.brother = brother;
     }
 
     public Object getElement() {
