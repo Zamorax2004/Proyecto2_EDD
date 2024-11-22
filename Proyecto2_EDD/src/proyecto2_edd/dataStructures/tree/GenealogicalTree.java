@@ -31,6 +31,7 @@ public class GenealogicalTree {
     }
 
     private void processFamilyMember(FamilyMember member) {
+        System.out.println("Processing member: " + member.getName());
         if (member.getParent().equals("[Unknown]")) {
             tree.add("/", member.getName());
         } else {
@@ -42,6 +43,7 @@ public class GenealogicalTree {
     private void addChildren(FamilyMember member) {
         for (int i = 0; i < member.getChildren().getSize(); i++) {
             String childName = (String) member.getChildren().get(i);
+            System.out.println("Adding child: " + childName + " to parent: " + member.getName());
             tree.add("/" + member.getName(), childName);
         }
     }
