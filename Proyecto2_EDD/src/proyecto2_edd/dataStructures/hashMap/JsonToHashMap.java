@@ -8,18 +8,20 @@ import java.io.IOException;
 
 public class JsonToHashMap {
 
+    // Method for testing purposes
     public static void main(String[] args) {
         String[] files = {"Proyecto2_EDD/Proyecto2_EDD/resources/Baratheon.json", "Proyecto2_EDD/Proyecto2_EDD/resources/Targaryen.json"};
+        HashMap<String, FamilyMember> familyMap = new HashMap<>();
         for (String file : files) {
-            processFile(file);
+            processFile(file, familyMap);
         }
     }
 
-    static void processFile(String filePath) {
+    // Method to process a JSON file and populate a provided HashMap
+    public static void processFile(String filePath, HashMap<String, FamilyMember> familyMap) {
         try (FileReader reader = new FileReader(filePath)) {
             JSONTokener tokener = new JSONTokener(reader);
             JSONObject jsonObject = new JSONObject(tokener);
-            HashMap<String, FamilyMember> familyMap = new HashMap<>();
             jsonObject.keys().forEachRemaining(house -> {
                 JSONArray members = jsonObject.getJSONArray(house);
                 for (int i = 0; i < members.length(); i++) {
@@ -45,11 +47,6 @@ public class JsonToHashMap {
                     familyMap.put(memberName, familyMember);
                 }
             });
-            // Print the familyMap to verify the data
-            System.out.println("Family Map for file: " + filePath);
-            familyMap.getTable().print();
-            // Print each family member
-            familyMap.getTable().printSecuencial();
         } catch (IOException e) {
             e.printStackTrace();
         }
