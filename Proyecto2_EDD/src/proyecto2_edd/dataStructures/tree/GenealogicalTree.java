@@ -5,6 +5,10 @@ import proyecto2_edd.dataStructures.hashMap.HashMap;
 import proyecto2_edd.dataStructures.hashMap.HashMapNode;
 import proyecto2_edd.dataStructures.array.NodeArray;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public class GenealogicalTree {
 
     private Tree tree;
@@ -14,40 +18,39 @@ public class GenealogicalTree {
     }
 
     public void buildTree(HashMap<String, FamilyMember> familyMap) {
-        // First pass: Add all members with unknown parents (root nodes)
+        List<FamilyMember> members = new ArrayList<>();
         for (int i = 0; i < familyMap.getTable().getArray().length; i++) {
             NodeArray nodeArray = (NodeArray) familyMap.getTable().getArray()[i];
             if (nodeArray != null) {
                 HashMapNode<String, FamilyMember> node = (HashMapNode<String, FamilyMember>) nodeArray.getElement();
                 while (node != null) {
-                    FamilyMember member = node.getValue();
-                    if (member.getParent().equals("[Unknown]")) {
-                        try {
-                            tree.add("/", member.getName());
-                        } catch (TreeException e) {
-                            System.err.println("Error adding root member: " + member.getName() + " - " + e.getMessage());
-                        }
-                    }
+                    members.add(node.getValue());
                     node = node.getNext();
                 }
             }
         }
 
-        // Second pass: Add all other members
-        for (int i = 0; i < familyMap.getTable().getArray().length; i++) {
-            NodeArray nodeArray = (NodeArray) familyMap.getTable().getArray()[i];
-            if (nodeArray != null) {
-                HashMapNode<String, FamilyMember> node = (HashMapNode<String, FamilyMember>) nodeArray.getElement();
-                while (node != null) {
-                    FamilyMember member = node.getValue();
-                    if (!member.getParent().equals("[Unknown]")) {
-                        try {
-                            tree.add("/" + member.getParent(), member.getName());
-                        } catch (TreeException e) {
-                            System.err.println("Error processing member: " + member.getName() + " - " + e.getMessage());
-                        }
-                    }
-                    node = node.getNext();
+        // Sort members by hierarchy to ensure parents are added before children
+        members.sort(Comparator.comparingInt(FamilyMember::getHierarchy));
+
+        // Add root nodes first
+        for (FamilyMember member : members) {
+            if (member.getParent().equals("[Unknown]")) {
+                try {
+                    tree.add("/", member.getName());
+                } catch (TreeException e) {
+                    System.err.println("Error adding root member: " + member.getName() + " - " + e.getMessage());
+                }
+            }
+        }
+
+        // Add all other members
+        for (FamilyMember member : members) {
+            if (!member.getParent().equals("[Unknown]")) {
+                try {
+                    tree.add("/" + member.getParent(), member.getName());
+                } catch (TreeException e) {
+                    System.err.println("Error processing member: " + member.getName() + " - " + e.getMessage());
                 }
             }
         }

@@ -1,20 +1,30 @@
 package proyecto2_edd.dataStructures.hashMap;
 
-import proyecto2_edd.dataStructures.list.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FamilyMember {
     private String name;
     private String parent;
     private String alias;
-    private List children;
+    private List<String> children;
+    private int hierarchy;
 
     public FamilyMember(String name) {
         this.name = name;
-        this.children = new List();
+        this.parent = "[Unknown]";
+        this.alias = "";
+        this.children = new ArrayList<>();
+        this.hierarchy = 0;
     }
 
+    // Getters and setters for all fields, including hierarchy
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getParent() {
@@ -33,28 +43,19 @@ public class FamilyMember {
         this.alias = alias;
     }
 
-    public List getChildren() {
+    public List<String> getChildren() {
         return children;
     }
 
     public void addChild(String child) {
-        children.insertFinal(child);
+        this.children.add(child);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder childrenNames = new StringBuilder();
-        for (int i = 0; i < children.getSize(); i++) {
-            childrenNames.append(children.get(i)).append(", ");
-        }
-        if (childrenNames.length() > 0) {
-            childrenNames.setLength(childrenNames.length() - 2); // Remove last comma and space
-        }
-        return "FamilyMember{" +
-                "name='" + name + '\'' +
-                ", parent='" + parent + '\'' +
-                ", alias='" + alias + '\'' +
-                ", children=[" + childrenNames.toString() + "]" +
-                '}';
+    public int getHierarchy() {
+        return hierarchy;
+    }
+
+    public void setHierarchy(int hierarchy) {
+        this.hierarchy = hierarchy;
     }
 }

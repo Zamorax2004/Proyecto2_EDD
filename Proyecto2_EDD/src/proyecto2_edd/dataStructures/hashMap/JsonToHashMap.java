@@ -1,5 +1,6 @@
 package proyecto2_edd.dataStructures.hashMap;
 
+import proyecto2_edd.dataStructures.array.NodeArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -8,16 +9,12 @@ import java.io.IOException;
 
 public class JsonToHashMap {
 
-    // Main method for testing purposes
     public static void main(String[] args) {
-        String[] files = {"Proyecto2_EDD/Proyecto2_EDD/resources/Baratheon.json", "Proyecto2_EDD/Proyecto2_EDD/resources/Targaryen.json"};
+        String file = "Proyecto2_EDD/Proyecto2_EDD/resources/Baratheon.json";
         HashMap<String, FamilyMember> familyMap = new HashMap<>();
-        for (String file : files) {
-            processFile(file, familyMap);
-        }
+        processFile(file, familyMap);
     }
 
-    // Method to process a JSON file and populate a provided HashMap
     public static void processFile(String filePath, HashMap<String, FamilyMember> familyMap) {
         try (FileReader reader = new FileReader(filePath)) {
             JSONTokener tokener = new JSONTokener(reader);
@@ -28,7 +25,6 @@ public class JsonToHashMap {
         }
     }
 
-    // Process each house in the JSON file
     private static void processHouse(JSONArray members, HashMap<String, FamilyMember> familyMap) {
         for (int i = 0; i < members.length(); i++) {
             JSONObject member = members.getJSONObject(i);
@@ -37,9 +33,9 @@ public class JsonToHashMap {
             processMemberAttributes(member.getJSONArray(memberName), familyMember);
             familyMap.put(memberName, familyMember);
         }
+        assignHierarchy(familyMap);
     }
 
-    // Process attributes of each family member
     private static void processMemberAttributes(JSONArray attributes, FamilyMember familyMember) {
         for (int j = 0; j < attributes.length(); j++) {
             JSONObject attribute = attributes.getJSONObject(j);
@@ -55,10 +51,28 @@ public class JsonToHashMap {
         }
     }
 
-    // Process children of a family member
     private static void processChildren(JSONArray children, FamilyMember familyMember) {
         for (int k = 0; k < children.length(); k++) {
             familyMember.addChild(children.getString(k));
+        }
+    }
+
+    private static void assignHierarchy(HashMap<String, FamilyMember> familyMap) {
+        for (int i = 0; i < familyMap.getTable().getArray().length; i++) {
+            NodeArray nodeArray = (NodeArray) familyMap.getTable().getArray()[i];
+            if (nodeArray != null) {
+                HashMapNode<String, FamilyMember> node = (HashMapNode<String, FamilyMember>) nodeArray.getElement();
+                while (node != null) {
+                    FamilyMember member = node.getValue();
+                    if (!member.getParent().equals("[Unknown]")) {
+                        FamilyMember parent = familyMap.get(member.getParent());
+                        if (parent != null) {
+                            member.setHierarchy(parent.getHierarchy() + 1);
+                        }
+                    }
+                    node = node.getNext();
+                }
+            }
         }
     }
 }
