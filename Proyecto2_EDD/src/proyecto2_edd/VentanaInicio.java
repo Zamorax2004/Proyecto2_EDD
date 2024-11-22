@@ -4,6 +4,7 @@
  */
 package proyecto2_edd;
 
+import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -70,9 +71,13 @@ public class VentanaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        VentanaMain v2 = new VentanaMain();
-        this.dispose();
-        v2.setVisible(true);
+        if (FileStorage.getInstance().getFilename() == null){
+            textField.setText("Seleccione un archivo!");
+        }else{
+            VentanaMain v2 = new VentanaMain(FileStorage.getInstance().getFilename());
+            this.dispose();
+            v2.setVisible(true);
+        }
     }//GEN-LAST:event_nextActionPerformed
 
     private void jFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooserActionPerformed
@@ -83,15 +88,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         fileChooser.addChoosableFileFilter(restrict);
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION){
-            //PLACEHOLDER++++++++++++++++++++++++++++++++++++++++++++++
-            java.io.File selectedFile = fileChooser.getSelectedFile();
+            File selectedFile = fileChooser.getSelectedFile();
             textField.setText(selectedFile.getName());
-            String fileName = selectedFile.getName();
-            if (fileName.equals("Targaryen.json")){
-                ;
-            }else if (fileName.equals("Baratheon.json")){
-                ;
-            }
+            FileStorage.getInstance().setFilename(selectedFile.getAbsolutePath());
         }else{
             System.out.println("Error");
         }
