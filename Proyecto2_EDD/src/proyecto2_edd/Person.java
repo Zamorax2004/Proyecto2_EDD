@@ -9,32 +9,108 @@ package proyecto2_edd;
  * @author yilup
  */
 public class Person {
-    private String fullName;
-    private String numeral;
-    private String mote;
-    private String title;
-    private String fatherName;
-    private String[] childrenNames; 
-    private String notes;
-    private String fate;
+    private String name; // Nombre completo
+    private String numeral; // Numeral (ej. "Primero", "Segundo")
+    private String mote; // Mote único
+    private String title; // Título nobiliario
+    private String father; // Nombre del padre
+    private String mother; // Nombre de la madre
+    private ListaEnlazada children; // Nombres de los hijos
+    private String notes; // Notas sobre su vida
+    private String fate; // Comentarios sobre su destino o muerte
 
-    public Person(String fullName, String numeral, String mote, String title, String fatherName, String[] childrenNames, String notes, String fate) {
-        this.fullName = fullName;
+    
+    public Person(String name, String numeral, String mote, String title, 
+                  String father, String mother, String notes, String fate) {
+        this.name = name;
         this.numeral = numeral;
         this.mote = mote;
         this.title = title;
-        this.fatherName = fatherName;
-        this.childrenNames = childrenNames != null ? childrenNames : new String[0];
+        this.father = father;
+        this.mother = mother;
+        this.children = new ListaEnlazada();
         this.notes = notes;
         this.fate = fate;
-    }
-    
-    public String getFullName() { return fullName; }
-    public String getMote() { return mote; }
-    public String[] getChildrenNames() { return childrenNames; }
-    public String getFatherName() { return fatherName; }
-    public String getNotes() { return notes; }
-    public String getFate() { return fate; }
+        
 
 }
+    
+    public void addChild(String childName) {
+        this.children.add(childName);
+    }
 
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public String getNumeral() {
+        return numeral;
+    }
+
+    public String getMote() {
+        return mote;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getFather() {
+        return father;
+    }
+
+    public String getMother() {
+        return mother;
+    }
+
+    public ListaEnlazada getChildren() {
+        return children;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public String getFate() {
+        return fate;
+    }
+
+    // Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNumeral(String numeral) {
+        this.numeral = numeral;
+    }
+
+    public void setMote(String mote) {
+        this.mote = mote;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setFather(String father) {
+        this.father = father;
+    }
+
+    public void setMother(String mother) {
+        this.mother = mother;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public void setFate(String fate) {
+        this.fate = fate;
+    }
+
+
+
+
+
+}
