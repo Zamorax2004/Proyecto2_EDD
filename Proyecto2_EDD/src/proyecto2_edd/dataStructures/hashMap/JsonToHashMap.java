@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import java.io.FileReader;
 import java.io.IOException;
-import proyecto2_edd.dataStructures.list.List;
 
 public class JsonToHashMap {
 
