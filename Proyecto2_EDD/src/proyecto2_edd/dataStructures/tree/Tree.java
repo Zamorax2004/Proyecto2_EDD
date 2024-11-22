@@ -12,18 +12,27 @@ public class Tree {
     public boolean add(String path, String element) {
         if (root == null) {
             root = new NodeTree(element);
+            System.out.println("Added root: " + element);
             return true;
         } else {
             NodeTree parent = searchNode(path);
             if (parent == null) {
+                System.out.println("Parent not found for path: " + path);
                 return false;
             } else {
-                return addSon(parent, element);
+                boolean added = addSon(parent, element);
+                if (added) {
+                    System.out.println("Added " + element + " to parent " + parent.getElement());
+                }
+                return added;
             }
         }
     }
 
     public NodeTree searchNode(String path) {
+        if (path.equals("/")) {
+            return root;
+        }
         NodeTree currentNode = root;
         StringTokenizer tokenizer = new StringTokenizer(path, "/");
         while (tokenizer.hasMoreTokens()) {
@@ -32,13 +41,12 @@ public class Tree {
             if (currentNode == null) {
                 return null;
             }
-            currentNode = currentNode.getSon();
         }
         return currentNode;
     }
 
     private NodeTree findChild(NodeTree node, String element) {
-        NodeTree current = node;
+        NodeTree current = node.getSon();
         while (current != null) {
             if (element.equals(current.getElement())) {
                 return current;
