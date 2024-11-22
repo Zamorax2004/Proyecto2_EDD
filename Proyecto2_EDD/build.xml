@@ -3,24 +3,24 @@
     <description>Builds, tests, and runs the project Proyecto2_EDD.</description>
 
     <!-- Define properties for source, build, and library directories -->
-    <property name="src.dir" location="src"/>
-    <property name="build.dir" location="build"/>
-    <property name="lib.dir" location="lib"/>
-
-    <!-- Define the classpath -->
-    <path id="classpath">
-        <fileset dir="${lib.dir}">
-            <include name="**/*.jar"/>
-        </fileset>
-    </path>
-
-    <!-- Initialize the build directory -->
     <target name="init">
+        <property name="src.dir" location="src"/>
+        <property name="build.dir" location="build"/>
+        <property name="lib.dir" location="lib"/>
         <mkdir dir="${build.dir}"/>
     </target>
 
+    <!-- Define the classpath -->
+    <target name="set-classpath">
+        <path id="classpath">
+            <fileset dir="${lib.dir}">
+                <include name="**/*.jar"/>
+            </fileset>
+        </path>
+    </target>
+
     <!-- Compile the source code -->
-    <target name="compile" depends="init">
+    <target name="compile" depends="init, set-classpath">
         <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath"/>
     </target>
 
