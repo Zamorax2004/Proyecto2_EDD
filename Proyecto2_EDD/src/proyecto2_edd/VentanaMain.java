@@ -9,12 +9,16 @@ package proyecto2_edd;
  * @author simon
  */
 public class VentanaMain extends javax.swing.JFrame {
-
+    private String fileName;
     /**
      * Creates new form VentanaMain
      */
-    public VentanaMain() {
+    public VentanaMain(String fileName) {
+        this.fileName = fileName;
         initComponents();
+        if (fileName != null){
+            handleJsonFile(fileName);
+        } 
     }
 
     /**
@@ -28,6 +32,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        fileTest = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -43,6 +48,13 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, 30));
 
+        fileTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileTestActionPerformed(evt);
+            }
+        });
+        jPanel1.add(fileTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 30, 110, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 410));
 
         pack();
@@ -54,6 +66,17 @@ public class VentanaMain extends javax.swing.JFrame {
         v1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void fileTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileTestActionPerformed
+        fileTest.setText(fileName);
+    }//GEN-LAST:event_fileTestActionPerformed
+
+    public void handleJsonFile(String fileName){
+        if (fileName.contains("Targaryen.json")){
+            ;
+        }else if (fileName.contains("Baratheon.json")){
+            ;
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -84,12 +107,13 @@ public class VentanaMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaMain().setVisible(true);
+                new VentanaMain(FileStorage.getInstance().getFilename()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField fileTest;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
