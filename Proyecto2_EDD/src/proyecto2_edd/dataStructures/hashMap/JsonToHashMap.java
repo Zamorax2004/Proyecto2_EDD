@@ -45,7 +45,7 @@ public class JsonToHashMap {
             if (attribute.has("Born to") && !attribute.getString("Born to").equals("[Unknown]")) {
                 if (familyMember.getParent().equals("[Unknown]")) {
                     familyMember.setParent(attribute.getString("Born to"));
-                } else {
+                } else if (familyMember.getMother().equals("[Unknown]")) {
                     familyMember.setMother(attribute.getString("Born to"));
                 }
             }

@@ -67,45 +67,16 @@ public class HashMap<K, V> {
         NodeArray current = (NodeArray) table.getArray()[index];
         while (current != null) {
             HashMapNode<K, V> currentNode = unwrapNode(current);
-            if (currentNode.getKey().equals(key)) {
+            if (currentNode != null && currentNode.getKey().equals(key)) {
                 return currentNode.getValue();
             }
-            current = wrapNode(currentNode.getNext());
+            current = currentNode != null ? wrapNode(currentNode.getNext()) : null;
         }
         return null;
     }
 
-    public V remove (K key) {
-        int index = hash(key);
-        NodeArray current = (NodeArray) table.getArray()[index];
-        NodeArray previous = null;
-        while (current != null) {
-            HashMapNode<K, V> currentNode = unwrapNode(current);
-            if (currentNode.getKey().equals(key)) {
-                if (previous == null) {
-                    table.getArray()[index] = current.getNext() != null ? table.getArray()[current.getNext()] : null;
-                } else {
-                    previous.setNext(current.getNext());
-                }
-                size--;
-                return currentNode.getValue();
-            }
-            previous = current;
-            current = current.getNext() != null ? table.getArray()[current.getNext()] : null;
-        }
-        return null;
-    }
-
-    public boolean containskey(K key) {
+    public boolean containsKey(K key) {
         return get(key) != null;
-    }
-
-    public int size() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public void resize() {
@@ -123,10 +94,5 @@ public class HashMap<K, V> {
             }
         }
         table = newTable;
-    }
-
-    public void clear() {
-        table = new Array(capacity);
-        size = 0;
     }
 }
