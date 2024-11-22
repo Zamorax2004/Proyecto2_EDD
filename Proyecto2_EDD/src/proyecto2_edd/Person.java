@@ -15,7 +15,7 @@ public class Person {
     private String title; // Título nobiliario
     private String father; // Nombre del padre
     private String mother; // Nombre de la madre
-    private ListaEnlazada children; // Nombres de los hijos
+    private List children; // Nombres de los hijos
     private String notes; // Notas sobre su vida
     private String fate; // Comentarios sobre su destino o muerte
 
@@ -28,7 +28,7 @@ public class Person {
         this.title = title;
         this.father = father;
         this.mother = mother;
-        this.children = new ListaEnlazada();
+        this.children = new List();
         this.notes = notes;
         this.fate = fate;
         
@@ -36,7 +36,7 @@ public class Person {
 }
     
     public void addChild(String childName) {
-        this.children.add(childName);
+        this.children.insertBegin(childName);
     }
 
     // Getters
@@ -64,7 +64,7 @@ public class Person {
         return mother;
     }
 
-    public ListaEnlazada getChildren() {
+    public List getChildren() {
         return children;
     }
 

@@ -331,11 +331,12 @@
         },
         {
             "Viserys Targaryen":[
-                {"Of his name":"First"},
+                {"Of his name":"Fourth"},
                 {"Born to":"Aerys Targaryen, Second of his name"},
                 {"Known throughout as":"The Dragon"},
                 {"Of eyes":"Purple"},
                 {"Of hair":"Silver"},
+                {"Notes":"Styled himself as Viserys the Only"},
                 {"Fate":"Executed by Khal Drogo with his own gold"}
             ]
         }
