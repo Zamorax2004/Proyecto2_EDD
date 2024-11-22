@@ -9,15 +9,22 @@ public class Tree {
         this.root = null;
     }
 
-    public boolean add(String path, String element) {
+    public boolean add(String path, String element) throws TreeException {
         if (root == null) {
-            root = new NodeTree(element);
-            return true;
+            if (path.equals("/")) {
+                root = new NodeTree(element);
+                return true;
+            } else {
+                throw new TreeException("Root node must be added first.");
+            }
         } else {
             NodeTree parent = searchNode(path);
             if (parent == null) {
-                return false;
+                throw new TreeException("Parent node not found for path: " + path);
             } else {
+                if (findChild(parent, element) != null) {
+                    throw new TreeException("Duplicate node: " + element);
+                }
                 return addSon(parent, element);
             }
         }

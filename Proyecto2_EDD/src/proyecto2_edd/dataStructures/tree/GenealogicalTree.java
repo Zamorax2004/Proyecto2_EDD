@@ -25,13 +25,16 @@ public class GenealogicalTree {
     private void processNodeArray(NodeArray nodeArray) {
         HashMapNode<String, FamilyMember> node = (HashMapNode<String, FamilyMember>) nodeArray.getElement();
         while (node != null) {
-            processFamilyMember(node.getValue());
+            try {
+                processFamilyMember(node.getValue());
+            } catch (TreeException e) {
+                System.err.println("Error processing member: " + node.getValue().getName() + " - " + e.getMessage());
+            }
             node = node.getNext();
         }
     }
 
-    private void processFamilyMember(FamilyMember member) {
-        System.out.println("Processing member: " + member.getName());
+    private void processFamilyMember(FamilyMember member) throws TreeException {
         if (member.getParent().equals("[Unknown]")) {
             tree.add("/", member.getName());
         } else {
@@ -40,10 +43,9 @@ public class GenealogicalTree {
         addChildren(member);
     }
 
-    private void addChildren(FamilyMember member) {
+    private void addChildren(FamilyMember member) throws TreeException {
         for (int i = 0; i < member.getChildren().getSize(); i++) {
             String childName = (String) member.getChildren().get(i);
-            System.out.println("Adding child: " + childName + " to parent: " + member.getName());
             tree.add("/" + member.getName(), childName);
         }
     }

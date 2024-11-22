@@ -12,7 +12,7 @@ public class GenealogicalTreeTest {
                 FilePathUtil.getJsonFilePath("Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/dataStructures/resources/Baratheon.json"),
                 FilePathUtil.getJsonFilePath("Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/dataStructures/resources/Targaryen.json")
         };
-                // Create a HashMap to store family members
+        // Create a HashMap to store family members
         HashMap<String, FamilyMember> familyMap = new HashMap<>();
 
         // Process each JSON files and populate the HashMap
@@ -20,7 +20,7 @@ public class GenealogicalTreeTest {
             JsonToHashMap.processFile(file, familyMap);
         }
 
-        // Create a GenalogicalTree object
+        // Create a GenealogicalTree object
         GenealogicalTree genealogicalTree = new GenealogicalTree();
 
         // Build the genealogical tree from the HashMap
