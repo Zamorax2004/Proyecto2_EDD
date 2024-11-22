@@ -10,6 +10,7 @@ public class Tree {
     }
 
     public boolean add(String path, String element) {
+        System.out.println("Attempting to add element: " + element + " to path: " + path);
         if (root == null) {
             root = new NodeTree(element);
             System.out.println("Added root: " + element);
@@ -30,6 +31,7 @@ public class Tree {
     }
 
     public NodeTree searchNode(String path) {
+        System.out.println("Searching for node with path: " + path);
         if (path.equals("/")) {
             return root;
         }
@@ -37,8 +39,10 @@ public class Tree {
         StringTokenizer tokenizer = new StringTokenizer(path, "/");
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
+            System.out.println("Current token: " + token);
             currentNode = findChild(currentNode, token);
             if (currentNode == null) {
+                System.out.println("Node not found for token: " + token);
                 return null;
             }
         }
@@ -46,6 +50,7 @@ public class Tree {
     }
 
     private NodeTree findChild(NodeTree node, String element) {
+        System.out.println("Finding child: " + element + " under node: " + node.getElement());
         NodeTree current = node.getSon();
         while (current != null) {
             if (element.equals(current.getElement())) {
