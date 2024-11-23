@@ -7,6 +7,7 @@ package proyecto2_edd;
 import java.io.FileReader;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
 /**
@@ -52,7 +53,7 @@ public class Tree {
     // Método para analizar y añadir un miembro al árbol
     private void parseAndAddMember(JSONObject memberData) {
         // Extraer los datos del miembro
-        String name = memberData.keySet().iterator().next().toString();
+        String name = memberData.keySet().iterator().next();
         JSONArray attributes = (JSONArray) memberData.get(name);
 
         String numeral = null, mote = null, title = null, father = null, mother = null, notes = null, fate = null;

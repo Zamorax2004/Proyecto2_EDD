@@ -33,7 +33,7 @@ public class VentanaMain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         fileTest = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        showTree = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -63,8 +63,13 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         jPanel1.add(fileTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 30, 110, -1));
 
-        jButton2.setText("Mostrar Arbol");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        showTree.setText("Mostrar Arbol");
+        showTree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showTreeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(showTree, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
         jButton3.setText("Ver Registro");
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
@@ -114,6 +119,11 @@ public class VentanaMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void showTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTreeActionPerformed
+        Grafo grafo = new Grafo();
+        grafo.displayFamilyTree();
+    }//GEN-LAST:event_showTreeActionPerformed
+
     public void handleJsonFile(String fileName){
         if (fileName.contains("Targaryen.json")){
             ;
@@ -159,7 +169,6 @@ public class VentanaMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField fileTest;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -168,5 +177,6 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton showTree;
     // End of variables declaration//GEN-END:variables
 }
