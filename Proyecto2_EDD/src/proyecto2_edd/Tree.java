@@ -93,7 +93,8 @@ public class Tree {
         // Establecer relaciones
         if (father != null && nameIndex.containsKey(father)) {
             TreeNode fatherNode = nameIndex.get(father);
-            fatherNode.addChild(newNode);
+            fatherNode.addChild(
+                    newNode);
             newNode.setParent(fatherNode);
         } else if (root == null) {
             // Si no tiene padre y no hay raíz, establecer como raíz
