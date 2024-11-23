@@ -9,7 +9,7 @@ import java.io.IOException;
 public class JsonToHashMap {
     
     public static void main(String[] args) {
-        String file = "Proyecto2_EDD/Proyecto2_EDD/resources/Baratheon.json";
+        String file = FileStorage.getInstance().getFilename();
         HashMap<String, Person> familyMap = new HashMap<>();
         processFile(file, familyMap);
     }
