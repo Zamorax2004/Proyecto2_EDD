@@ -1,7 +1,5 @@
 package proyecto2_edd;
 
-import proyecto2_edd.Array;
-import proyecto2_edd.NodeArray;
 
 public class HashMap<K, V> {
     private Array table;

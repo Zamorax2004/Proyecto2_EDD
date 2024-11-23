@@ -107,9 +107,4 @@ public class Person {
     public void setFate(String fate) {
         this.fate = fate;
     }
-
-
-
-
-
 }

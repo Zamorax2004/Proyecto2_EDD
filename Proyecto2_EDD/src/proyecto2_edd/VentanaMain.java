@@ -48,13 +48,13 @@ public class VentanaMain extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Go Back");
+        jButton1.setText("Reemplazar Archivo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 30));
 
         fileTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,8 +120,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void showTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTreeActionPerformed
-        Grafo grafo = new Grafo();
-        grafo.displayFamilyTree();
+        
     }//GEN-LAST:event_showTreeActionPerformed
 
     public void handleJsonFile(String fileName){
