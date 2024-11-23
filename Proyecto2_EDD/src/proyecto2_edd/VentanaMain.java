@@ -41,6 +41,8 @@ public class VentanaMain extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        BaratheonLabel = new javax.swing.JLabel();
+        TargaryenLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -105,7 +107,13 @@ public class VentanaMain extends javax.swing.JFrame {
         jButton7.setText("Lista de Integrantes de una Generacion");
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 410));
+        BaratheonLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto2_edd/game-of-thrones-house-baratheon (1).jpg"))); // NOI18N
+        jPanel1.add(BaratheonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 420));
+
+        TargaryenLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto2_edd/house-targaryen-game-of-thrones (1).jpg"))); // NOI18N
+        jPanel1.add(TargaryenLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 420));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -175,6 +183,8 @@ public class VentanaMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BaratheonLabel;
+    private javax.swing.JLabel TargaryenLabel;
     private javax.swing.JTextField fileTest;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
