@@ -1,4 +1,4 @@
-package proyecto2_edd.dataStructures.tree;
+package proyecto2_edd;
 
 import java.util.StringTokenizer;
 
@@ -9,21 +9,31 @@ public class Tree {
         this.root = null;
     }
 
-    public boolean add(String path, String element) {
+    public boolean add(String path, String element) throws TreeException {
         if (root == null) {
-            root = new NodeTree(element);
-            return true;
+            if (path.equals("/")) {
+                root = new NodeTree(element);
+                return true;
+            } else {
+                throw new TreeException("Root node must be added first.");
+            }
         } else {
             NodeTree parent = searchNode(path);
             if (parent == null) {
-                return false;
+                throw new TreeException("Parent node not found for path: " + path);
             } else {
+                if (findChild(parent, element) != null) {
+                    throw new TreeException("Duplicate node: " + element);
+                }
                 return addSon(parent, element);
             }
         }
     }
 
     public NodeTree searchNode(String path) {
+        if (path.equals("/")) {
+            return root;
+        }
         NodeTree currentNode = root;
         StringTokenizer tokenizer = new StringTokenizer(path, "/");
         while (tokenizer.hasMoreTokens()) {
@@ -32,13 +42,12 @@ public class Tree {
             if (currentNode == null) {
                 return null;
             }
-            currentNode = currentNode.getSon();
         }
         return currentNode;
     }
 
     private NodeTree findChild(NodeTree node, String element) {
-        NodeTree current = node;
+        NodeTree current = node.getSon();
         while (current != null) {
             if (element.equals(current.getElement())) {
                 return current;

@@ -1,4 +1,4 @@
-package proyecto2_edd.dataStructures.hashMap;
+package proyecto2_edd;
 
 public class HashMapNode<K, V> {
     private K key;

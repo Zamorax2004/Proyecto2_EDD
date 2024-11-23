@@ -1,4 +1,4 @@
-package proyecto2_edd.dataStructures.list;
+package proyecto2_edd;
 
 public class NodeList {
     private Object element;

@@ -1,4 +1,4 @@
-package proyecto2_edd.dataStructures.array;
+package proyecto2_edd;
 
 public class NodeArray {
     private Object element;

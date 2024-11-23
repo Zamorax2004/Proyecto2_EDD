@@ -1,4 +1,4 @@
-package proyecto2_edd.dataStructures.tree;
+package proyecto2_edd;
 
 public class NodeTree {
     private Object element;
