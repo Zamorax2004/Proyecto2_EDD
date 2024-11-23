@@ -31,9 +31,8 @@ public class Person {
         this.children = new List();
         this.notes = notes;
         this.fate = fate;
-        
-
-}
+    }
+    
     
     public void addChild(String childName) {
         this.children.insertBegin(childName);
@@ -48,7 +47,7 @@ public class Person {
         return numeral;
     }
 
-    public String getMote() {
+    public String getAlias() {
         return mote;
     }
 
@@ -56,7 +55,7 @@ public class Person {
         return title;
     }
 
-    public String getFather() {
+    public String getParent() {
         return father;
     }
 
@@ -85,7 +84,7 @@ public class Person {
         this.numeral = numeral;
     }
 
-    public void setMote(String mote) {
+    public void setAlias(String mote) {
         this.mote = mote;
     }
 
@@ -93,7 +92,7 @@ public class Person {
         this.title = title;
     }
 
-    public void setFather(String father) {
+    public void setParent(String father) {
         this.father = father;
     }
 
