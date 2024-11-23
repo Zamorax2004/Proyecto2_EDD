@@ -18,50 +18,47 @@ public class GenealogicalTree {
     }
 
     public void buildTree(HashMap<String, FamilyMember> familyMap) {
-        List<FamilyMember> members = new ArrayList<>();
-        for (int i = 0; i < familyMap.getTable().getArray().length; i++) {
-            NodeArray nodeArray = (NodeArray) familyMap.getTable().getArray()[i];
-            if (nodeArray != null) {
-                HashMapNode<String, FamilyMember> node = (HashMapNode<String, FamilyMember>) nodeArray.getElement();
-                while (node != null) {
-                    members.add(node.getValue());
-                    node = node.getNext();
-                }
-            }
-        }
-
-        // Sort members by hierarchy to ensure parents are added before children
-        members.sort(Comparator.comparingInt(FamilyMember::getHierarchy));
-
-        // Add root nodes first
-        for (FamilyMember member : members) {
-            if (member.getParent().equals("[Unknown]") && member.getMother().equals("[Unknown]")) {
-                try {
-                    tree.add("/", member.getName());
-                } catch (TreeException e) {
-                    System.err.println("Error adding root member: " + member.getName() + " - " + e.getMessage());
-                }
-            }
-        }
-
-        // Add all other members
-        for (FamilyMember member : members) {
-            if (!member.getParent().equals("[Unknown]")) {
-                try {
-                    tree.add("/" + member.getParent(), member.getName());
-                } catch (TreeException e) {
-                    System.err.println("Error processing member: " + member.getName() + " - " + e.getMessage());
-                }
-            }
-            if (!member.getMother().equals("[Unknown]")) {
-                try {
-                    tree.add("/" + member.getMother(), member.getName());
-                } catch (TreeException e) {
-                    System.err.println("Error processing member: " + member.getName() + " - " + e.getMessage());
-                }
+    List<FamilyMember> members = new ArrayList<>();
+    for (int i = 0; i < familyMap.getTable().getArray().length; i++) {
+        NodeArray nodeArray = (NodeArray) familyMap.getTable().getArray()[i];
+        if (nodeArray != null) {
+            HashMapNode<String, FamilyMember> node = (HashMapNode<String, FamilyMember>) nodeArray.getElement();
+            while (node != null) {
+                members.add(node.getValue());
+                node = node.getNext();
             }
         }
     }
+
+    // Add root nodes first
+    for (FamilyMember member : members) {
+        if (member.getParent().equals("[Unknown]") && member.getMother().equals("[Unknown]")) {
+            try {
+                tree.add("/", member.getName());
+            } catch (TreeException e) {
+                System.err.println("Error adding root member: " + member.getName() + " - " + e.getMessage());
+            }
+        }
+    }
+
+    // Add all other members
+    for (FamilyMember member : members) {
+        if (!member.getParent().equals("[Unknown]")) {
+            try {
+                tree.add("/" + member.getParent(), member.getName());
+            } catch (TreeException e) {
+                System.err.println("Error processing member: " + member.getName() + " - " + e.getMessage());
+            }
+        }
+        if (!member.getMother().equals("[Unknown]")) {
+            try {
+                tree.add("/" + member.getMother(), member.getName());
+            } catch (TreeException e) {
+                System.err.println("Error processing member: " + member.getName() + " - " + e.getMessage());
+            }
+        }
+    }
+}
 
     public void printTree() {
         tree.printTree();
