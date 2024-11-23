@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-<<<<<<< HEAD
-=======
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/simon/Dropbox/PC/Desktop/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/VentanaInicio.java</file>
-            <file>file:/C:/Users/simon/Dropbox/PC/Desktop/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/dataStructures/hashMap/JsonToHashMap.java</file>
-            <file>file:/C:/Users/simon/Dropbox/PC/Desktop/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/VentanaMain.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/HashMapNode.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/HashMap.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/NodoHash.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/Tree.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/Array.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/NodeTree.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/TreeException.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/JsonToHashMap.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/NodeArray.java</file>
+            <file>file:/C:/Users/yilup/OneDrive/Documentos/NetBeansProjects/Proyecto2_EDD/Proyecto2_EDD/src/proyecto2_edd/Person.java</file>
         </group>
     </open-files>
->>>>>>> cf5dd4a0999eebb6b97d3e9737634ead86cdc70d
 </project-private>
