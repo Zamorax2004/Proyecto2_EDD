@@ -5,14 +5,12 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import java.io.FileReader;
 import java.io.IOException;
+import proyecto2_edd.FileStorage;
 
 public class JsonToHashMap {
-
+    
     public static void main(String[] args) {
-        String[] files = {"Proyecto2_EDD/Proyecto2_EDD/resources/Baratheon.json", "Proyecto2_EDD/Proyecto2_EDD/resources/Targaryen.json"};
-        for (String file : files) {
-            processFile(file);
-        }
+        
     }
 
     static void processFile(String filePath) {
