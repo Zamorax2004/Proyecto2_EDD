@@ -4,8 +4,12 @@
  */
 package proyecto2_edd;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -37,6 +41,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         next = new javax.swing.JButton();
         jFileChooser = new javax.swing.JButton();
         textField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -44,6 +49,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Title.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setText("Title");
         jPanel1.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 100, 60));
 
@@ -54,7 +60,7 @@ public class VentanaInicio extends javax.swing.JFrame {
                 nextActionPerformed(evt);
             }
         });
-        jPanel1.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 70, 30));
+        jPanel1.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, 70, 30));
 
         jFileChooser.setText("Escoger archivo");
         jFileChooser.addActionListener(new java.awt.event.ActionListener() {
@@ -62,8 +68,12 @@ public class VentanaInicio extends javax.swing.JFrame {
                 jFileChooserActionPerformed(evt);
             }
         });
-        jPanel1.add(jFileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, -1, -1));
-        jPanel1.add(textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 120, -1));
+        jPanel1.add(jFileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, -1));
+        jPanel1.add(textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 120, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto2_edd/game-of-thrones-iron-throne.jpg"))); // NOI18N
+        jLabel1.setRequestFocusEnabled(false);
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 660, 430));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 410));
 
@@ -96,6 +106,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jFileChooserActionPerformed
 
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -134,6 +146,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
     private javax.swing.JButton jFileChooser;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton next;
     private javax.swing.JTextField textField;

@@ -36,7 +36,7 @@ public class VentanaMain extends javax.swing.JFrame {
         showTree = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        nameList = new javax.swing.JList<>();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -74,16 +74,21 @@ public class VentanaMain extends javax.swing.JFrame {
         jButton3.setText("Ver Registro");
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        nameList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Nodo 1", "Nodo 2", "Nodo 3", "Nodo 4", "Nodo 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(nameList);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 90, 220, -1));
 
         jButton4.setText("Buscar por Nombre");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         jButton5.setText("Mostrar Antepasados");
@@ -122,6 +127,10 @@ public class VentanaMain extends javax.swing.JFrame {
     private void showTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTreeActionPerformed
         
     }//GEN-LAST:event_showTreeActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void handleJsonFile(String fileName){
         if (fileName.contains("Targaryen.json")){
@@ -173,9 +182,9 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> nameList;
     private javax.swing.JButton showTree;
     // End of variables declaration//GEN-END:variables
 }
