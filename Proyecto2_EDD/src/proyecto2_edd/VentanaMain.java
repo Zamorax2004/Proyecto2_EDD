@@ -56,7 +56,7 @@ public class VentanaMain extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 150, 30));
 
         fileTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,10 +141,12 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     public void handleJsonFile(String fileName){
+        TargaryenLabel.setVisible(false);
+        BaratheonLabel.setVisible(false);
         if (fileName.contains("Targaryen.json")){
-            ;
+            TargaryenLabel.setVisible(true);
         }else if (fileName.contains("Baratheon.json")){
-            ;
+            BaratheonLabel.setVisible(true);
         }
     }
     /**
