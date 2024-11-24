@@ -167,7 +167,7 @@ public class VentanaMain extends javax.swing.JFrame {
 
     private void verRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verRegistroActionPerformed
         String selectedName = nameList.getSelectedValue();
-        if (selectedName != null){
+        if (selectedName != null && !selectedName.isEmpty()){
             displayPersonInfo(selectedName);
         }else{
             textArea.setText("Seleccione un nombre de la lista!");
@@ -205,17 +205,16 @@ public class VentanaMain extends javax.swing.JFrame {
     public void displayPersonInfo(String name){
         TreeNode node = tree.searchByName(name);
         if (node != null){
-            Person person = node.getPerson();
             StringBuilder info = new StringBuilder();
-            info.append("Name: ").append(person.getName()).append("\n");
-            info.append("Numeral: ").append(person.getNumeral()).append("\n");
-            info.append("Alias: ").append(person.getAlias()).append("\n");
-            info.append("Title: ").append(person.getTitle()).append("\n");
-            info.append("Father: ").append(person.getParent()).append("\n");
-            info.append("Mother: ").append(person.getMother()).append("\n");
-            info.append("Children: ").append(person.getChildren()).append("\n");
-            info.append("Notes: ").append(person.getNotes()).append("\n");
-            info.append("Fate: ").append(person.getFate()).append("\n");
+            info.append("Name: ").append(node.getPerson().getName()).append("\n");
+            info.append("Numeral: ").append(node.getPerson().getNumeral()).append("\n");
+            info.append("Alias: ").append(node.getPerson().getAlias()).append("\n");
+            info.append("Title: ").append(node.getPerson().getTitle()).append("\n");
+            info.append("Father: ").append(node.getPerson().getParent()).append("\n");
+            info.append("Mother: ").append(node.getPerson().getMother()).append("\n");
+            info.append("Children: ").append(node.getPerson().getChildren()).append("\n");
+            info.append("Notes: ").append(node.getPerson().getNotes()).append("\n");
+            info.append("Fate: ").append(node.getPerson().getFate()).append("\n");
             textArea.setText(info.toString());
         }else{
             textArea.setText("Error");

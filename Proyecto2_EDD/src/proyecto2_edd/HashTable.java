@@ -5,7 +5,6 @@
 package proyecto2_edd;
 
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
