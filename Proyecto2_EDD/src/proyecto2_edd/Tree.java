@@ -43,7 +43,13 @@ public class Tree {
         }
     }
 
-    
+    public ListaEnlazada<String> getAllNames(){
+        ListaEnlazada<String> names = new ListaEnlazada<>();
+        for (TreeNode node : nameIndex.values()){
+            names.add(node.getPerson().getName());
+        }
+        return names;
+    }
 
     // Método para buscar por nombre
     public TreeNode searchByName(String name) {
@@ -97,27 +103,27 @@ public class Tree {
     }
     
     private void addName(String name) {
-        TreeNode newNode = new TreeNode(new Person(name));
-        if (root == null) {
-            root = newNode;
-        } else {
-            ListaEnlazada<TreeNode> queue = new ListaEnlazada<>();
-            queue.add(root);
-            while (!queue.isEmpty()) {
-                TreeNode current = queue.remove(0);
-                if (current.getChildren().isEmpty()) {
-                    current.addChild(newNode);
-                    newNode.setParent(current);
-                    break;
-                } else {
-                    for (int i = 0; i < current.getChildren().size(); i++) {
-                        queue.add(current.getChildren().get(i));
-                    }
+    TreeNode newNode = new TreeNode(new Person(name));
+    if (root == null) {
+        root = newNode;
+    } else {
+        ListaEnlazada<TreeNode> queue = new ListaEnlazada<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.remove(0);
+            if (current.getChildren().isEmpty()) {
+                current.addChild(newNode);
+                newNode.setParent(current);
+                break;
+            } else {
+                for (int i = 0; i < current.getChildren().size(); i++) {
+                    queue.add(current.getChildren().get(i));
                 }
             }
         }
-        nameIndex.put(name, newNode);
     }
+    nameIndex.put(name, newNode);
+}
     
     public TreeNode getRoot() {
         return root;
@@ -126,6 +132,4 @@ public class Tree {
     public void setRoot(TreeNode root) {
         this.root = root;
     }
-    
-    
 }

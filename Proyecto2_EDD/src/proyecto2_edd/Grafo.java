@@ -31,10 +31,10 @@ public class Grafo {
     }
     
     public void buildFromTree(Tree tree) {
-        buildGraphRecursively(tree.getRoot());
+        buildGraph(tree.getRoot());
     }
 
-    private void buildGraphRecursively(TreeNode node) {
+    private void buildGraph(TreeNode node) {
         if (node == null) return;
 
         addFamilyMember(node.getPerson().getName());
@@ -44,9 +44,7 @@ public class Grafo {
             TreeNode child = iterator.next();
             addFamilyMember(child.getPerson().getName());
             addRelationship(node.getPerson().getName(), child.getPerson().getName());
-            buildGraphRecursively(child);
+            buildGraph(child);
         }
-    }
-
-    //funcion que obtenga arbol con nombres en los nodos y los transforme en un grafo    
+    }    
 }

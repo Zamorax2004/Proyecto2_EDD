@@ -4,12 +4,16 @@
  */
 package proyecto2_edd;
 
+import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
+
 /**
  *
  * @author simon
  */
 public class VentanaMain extends javax.swing.JFrame {
     private String fileName;
+    private Tree tree;
     /**
      * Creates new form VentanaMain
      */
@@ -19,6 +23,7 @@ public class VentanaMain extends javax.swing.JFrame {
         textArea.setEditable(false);
         if (fileName != null){
             handleJsonFile(fileName);
+            loadNamesIntoList();
         }
     }
 
@@ -45,6 +50,7 @@ public class VentanaMain extends javax.swing.JFrame {
         textArea = new javax.swing.JTextArea();
         nameTextField = new javax.swing.JTextField();
         titleTextField = new javax.swing.JTextField();
+        resetList = new javax.swing.JButton();
         BaratheonLabel = new javax.swing.JLabel();
         TargaryenLabel = new javax.swing.JLabel();
 
@@ -85,7 +91,7 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(nameList);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 240, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 220, 350));
 
         nameSearch.setText("Buscar por Nombre");
         nameSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -113,9 +119,18 @@ public class VentanaMain extends javax.swing.JFrame {
         textArea.setRows(5);
         jScrollPane2.setViewportView(textArea);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 240, 90));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 260, 110));
         jPanel1.add(nameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 200, -1));
         jPanel1.add(titleTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 200, -1));
+
+        resetList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        resetList.setText("Display Full List");
+        resetList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetListActionPerformed(evt);
+            }
+        });
+        jPanel1.add(resetList, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 220, -1));
 
         BaratheonLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto2_edd/game-of-thrones-house-baratheon (1).jpg"))); // NOI18N
         jPanel1.add(BaratheonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 420));
@@ -151,8 +166,17 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_nameSearchActionPerformed
 
     private void verRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verRegistroActionPerformed
-        // TODO add your handling code here:
+        String selectedName = nameList.getSelectedValue();
+        if (selectedName != null){
+            displayPersonInfo(selectedName);
+        }else{
+            textArea.setText("Seleccione un nombre de la lista!");
+        }
     }//GEN-LAST:event_verRegistroActionPerformed
+
+    private void resetListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetListActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetListActionPerformed
 
     public void handleJsonFile(String fileName){
         TargaryenLabel.setVisible(false);
@@ -161,6 +185,40 @@ public class VentanaMain extends javax.swing.JFrame {
             TargaryenLabel.setVisible(true);
         }else if (fileName.contains("Baratheon.json")){
             BaratheonLabel.setVisible(true);
+        }
+    }
+    
+    public void loadNamesIntoList(){
+        tree = new Tree();
+        tree.loadNamesFromJSON(fileName);
+        ListaEnlazada<String> names = tree.getAllNames();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        Nodo<String> current = names.getHead();
+        while (current != null){
+            listModel.addElement(current.getData());
+            current = current.getNext();
+        }
+        nameList.setModel(listModel);
+        nameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+    
+    public void displayPersonInfo(String name){
+        TreeNode node = tree.searchByName(name);
+        if (node != null){
+            Person person = node.getPerson();
+            StringBuilder info = new StringBuilder();
+            info.append("Name: ").append(person.getName()).append("\n");
+            info.append("Numeral: ").append(person.getNumeral()).append("\n");
+            info.append("Alias: ").append(person.getAlias()).append("\n");
+            info.append("Title: ").append(person.getTitle()).append("\n");
+            info.append("Father: ").append(person.getParent()).append("\n");
+            info.append("Mother: ").append(person.getMother()).append("\n");
+            info.append("Children: ").append(person.getChildren()).append("\n");
+            info.append("Notes: ").append(person.getNotes()).append("\n");
+            info.append("Fate: ").append(person.getFate()).append("\n");
+            textArea.setText(info.toString());
+        }else{
+            textArea.setText("Error");
         }
     }
     /**
@@ -210,6 +268,7 @@ public class VentanaMain extends javax.swing.JFrame {
     private javax.swing.JList<String> nameList;
     private javax.swing.JButton nameSearch;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JButton resetList;
     private javax.swing.JButton showTree;
     private javax.swing.JTextArea textArea;
     private javax.swing.JButton titleSearch;

@@ -93,4 +93,15 @@ public class HashTable<K,V> {
     public boolean isEmpty() {
         return size == 0;
     }
+    
+    public ListaEnlazada<V> values() {
+        ListaEnlazada<V> values = new ListaEnlazada<>();
+        for (ListaEnlazada<NodoHash<K, V>> bucket : buckets) {
+            ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
+            while (iterator.hasNext()) {
+                values.add(iterator.next().getValue());
+            }
+        }
+        return values;
+    }
 }

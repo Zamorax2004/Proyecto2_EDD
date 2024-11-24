@@ -19,22 +19,27 @@ public class ListaEnlazada<T> {
     }
 
     // Eliminar un elemento
-    public void remove(T data) {
-        if (head == null) return;
+    public T remove(int index) {
+        if (head == null) throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
 
-        if (head.getData().equals(data)) {
+        if (index == 0) {
+            T data = head.getData();
             head = head.getNext();
-            return;
+            return data;
         }
 
         Nodo<T> current = head;
+        int count = 0;
         while (current.getNext() != null) {
-            if (current.getNext().getData().equals(data)) {
+            if (count == index - 1) {
+                T data = current.getNext().getData();
                 current.setNext(current.getNext().getNext());
-                return;
+                return data;
             }
+            count++;
             current = current.getNext();
         }
+        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
     }
 
     // Obtener un iterador para recorrer la lista
@@ -89,5 +94,13 @@ public class ListaEnlazada<T> {
             current = current.getNext();
         }
         return count;
+    }
+
+    public Nodo<T> getHead() {
+        return head;
+    }
+
+    public void setHead(Nodo<T> head) {
+        this.head = head;
     }
 }
