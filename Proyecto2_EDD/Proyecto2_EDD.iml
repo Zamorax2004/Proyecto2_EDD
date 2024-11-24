@@ -10,32 +10,14 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/json-20240303.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/json-simple-1.1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$USER_HOME$/Downloads/jar_files_graph" />
+          <root url="file://$MODULE_DIR$/../../lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$USER_HOME$/Downloads/jar_files_graph" />
+          <root url="file://$MODULE_DIR$/../../lib" />
         </SOURCES>
-        <jarDirectory url="file://$USER_HOME$/Downloads/jar_files_graph" recursive="false" />
-        <jarDirectory url="file://$USER_HOME$/Downloads/jar_files_graph" recursive="false" type="SOURCES" />
+        <jarDirectory url="file://$MODULE_DIR$/../../lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
   </component>
