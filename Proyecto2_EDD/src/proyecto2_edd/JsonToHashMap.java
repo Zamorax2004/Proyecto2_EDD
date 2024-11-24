@@ -32,7 +32,6 @@ public class JsonToHashMap {
             processMemberAttributes(member.getJSONArray(memberName), familyMember);
             familyMap.put(memberName, familyMember);
         }
-        assignHierarchy(familyMap);
     }
 
     private static void processMemberAttributes(JSONArray attributes, Person familyMember) {
@@ -40,6 +39,8 @@ public class JsonToHashMap {
             JSONObject attribute = attributes.getJSONObject(j);
             if (attribute.has("Father to")) {
                 processChildren(attribute.getJSONArray("Father to"), familyMember);
+            } else {
+                familyMember.setParent("[Unknown]");
             }
             if (attribute.has("Born to") && !attribute.getString("Born to").equals("[Unknown]")) {
                 if (familyMember.getParent().equals("[Unknown]")) {
@@ -47,9 +48,38 @@ public class JsonToHashMap {
                 } else if (familyMember.getMother().equals("[Unknown]")) {
                     familyMember.setMother(attribute.getString("Born to"));
                 }
+            } else {
+                if (familyMember.getParent().equals("[Unknown]")) {
+                    familyMember.setParent("[Unknown]");
+                }
+                if (familyMember.getMother().equals("[Unknown]")) {
+                    familyMember.setMother("[Unknown]");
+                }
             }
             if (attribute.has("Known throughout as")) {
                 familyMember.setAlias(attribute.getString("Known throughout as"));
+            } else {
+                familyMember.setAlias("[Unknown]");
+            }
+            if (attribute.has("numeral")) {
+                familyMember.setNumeral(attribute.getString("numeral"));
+            } else {
+                familyMember.setNumeral("[Unknown]");
+            }
+            if (attribute.has("title")) {
+                familyMember.setTitle(attribute.getString("title"));
+            } else {
+                familyMember.setTitle("[Unknown]");
+            }
+            if (attribute.has("notes")) {
+                familyMember.setNotes(attribute.getString("notes"));
+            } else {
+                familyMember.setNotes("[Unknown]");
+            }
+            if (attribute.has("fate")) {
+                familyMember.setFate(attribute.getString("fate"));
+            } else {
+                familyMember.setFate("[Unknown]");
             }
         }
     }
@@ -57,25 +87,6 @@ public class JsonToHashMap {
     private static void processChildren(JSONArray children, Person familyMember) {
         for (int k = 0; k < children.length(); k++) {
             familyMember.addChild(children.getString(k));
-        }
-    }
-
-    private static void assignHierarchy(HashMap<String, Person> familyMap) {
-        for (int i = 0; i < familyMap.getTable().getArray().length; i++) {
-            NodeArray nodeArray = (NodeArray) familyMap.getTable().getArray()[i];
-            if (nodeArray != null) {
-                HashMapNode<String, Person> node = (HashMapNode<String, Person>) nodeArray.getElement();
-                while (node != null) {
-                    Person member = node.getValue();
-                    if (!member.getParent().equals("[Unknown]")) {
-                        Person parent = familyMap.get(member.getParent());
-                        if (parent != null) {
-                            member.setHierarchy(parent.getHierarchy() + 1);
-                        }
-                    }
-                    node = node.getNext();
-                }
-            }
         }
     }
 }

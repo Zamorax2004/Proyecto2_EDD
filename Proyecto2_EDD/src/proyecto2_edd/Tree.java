@@ -27,17 +27,39 @@ public class Tree {
     }
 
     // Método para cargar un árbol desde un archivo JSON
-    public void loadFromJSON(String jsonFilePath) {
+    public void loadFromJSON() {
         try {
-            // Cargar el archivo JSON y parsearlo
-            JSONParser parser = new JSONParser(); // Crear un parser JSON
+            String jsonFilePath = FileStorage.getInstance().getFilename();
+            JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(jsonFilePath));
             JSONObject jsonObject = (JSONObject) obj;
-
-            // Iterar sobre los linajes en el archivo JSON
             for (Object key : jsonObject.keySet()) {
-                String lineageName = (String) key; // Nombre de la casa
+                String lineageName = (String) key;
                 JSONArray members = (JSONArray) jsonObject.get(lineageName);
+                for (Object memberObj : members) {
+                    JSONObject memberData = (JSONObject) memberObj;
+                    String name = (String) memberData.get("name");
+                    String numeral = (String) memberData.get("numeral");
+                    String mote = (String) memberData.get("mote");
+                    String title = (String) memberData.get("title");
+                    String father = (String) memberData.get("father");
+                    String mother = (String) memberData.get("mother");
+                    String notes = (String) memberData.get("notes");
+                    String fate = (String) memberData.get("fate");
+                    Person person = new Person(name, numeral, mote, title, father, mother, notes, fate);
+                    TreeNode node = new TreeNode(person);
+                    if (root == null) {
+                        root = node;
+                    } else {
+                        TreeNode parentNode = nameIndex.get(father);
+                        if (parentNode != null) {
+                            parentNode.addChild(node);
+                            node.setParent(parentNode);
+                        }
+                    }
+                    nameIndex.put(name, node);
+                    moteIndex.put(mote, node);
+                }
             }
         } catch (Exception e) {
             System.err.println("Error al cargar el archivo JSON: " + e.getMessage());
