@@ -70,8 +70,8 @@ public class VentanaInicio extends javax.swing.JFrame {
                 jFileChooserActionPerformed(evt);
             }
         });
-        jPanel1.add(jFileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 130, 30));
-        jPanel1.add(textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 262, 180, 20));
+        jPanel1.add(jFileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 130, 30));
+        jPanel1.add(textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 262, 180, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto2_edd/game-of-thrones-iron-throne.jpg"))); // NOI18N
         jLabel1.setRequestFocusEnabled(false);

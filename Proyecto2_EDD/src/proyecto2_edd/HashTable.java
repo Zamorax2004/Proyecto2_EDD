@@ -109,39 +109,4 @@ public class HashTable<K,V> {
         return values;
     }
     
-    public Enumeration<V> elements() {
-        return new Enumeration<V>() {
-            private int bucketIndex = 0;
-            private Iterator<NodoHash<K, V>> bucketIterator = getNextIterator();
-
-            @Override
-            public boolean hasMoreElements() {
-                while (bucketIndex < buckets.length) {
-                    if (bucketIterator != null && bucketIterator.hasNext()) {
-                        return true;
-                    }
-                    bucketIterator = getNextIterator();
-                }
-                return false;
-            }
-
-            @Override
-            public V nextElement() {
-                if (!hasMoreElements()) {
-                    throw new NoSuchElementException();
-                }
-                return bucketIterator.next().getValue();
-            }
-
-            private Iterator<NodoHash<K, V>> getNextIterator() {
-                while (bucketIndex < buckets.length) {
-                    ListaEnlazada<NodoHash<K, V>> bucket = buckets[bucketIndex++];
-                    if (bucket != null && !bucket.isEmpty()) {
-                        return bucket.iterator();
-                    }
-                }
-                return null;
-            }
-        };
-    }
 }
