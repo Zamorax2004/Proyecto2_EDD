@@ -103,4 +103,20 @@ public class ListaEnlazada<T> {
     public void setHead(Nodo<T> head) {
         this.head = head;
     }
+    
+    public void remove(T data) {
+        if (head == null) return;
+        if (head.getData().equals(data)) {
+            head = head.getNext();
+            return;
+        }
+        Nodo<T> current = head;
+        while (current.getNext() != null) {
+            if (current.getNext().getData().equals(data)) {
+                current.setNext(current.getNext().getNext());
+                return;
+            }
+            current = current.getNext();
+        }
+    }
 }
