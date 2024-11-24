@@ -63,4 +63,31 @@ public class ListaEnlazada<T> {
             return data;
         }
     }
+    
+    public boolean isEmpty(){
+        return head == null;
+    }
+    
+    public T get(int index) {
+        Nodo<T> current = head;
+        int count = 0;
+        while (current != null) {
+            if (count == index) {
+                return current.getData();
+            }
+            count++;
+            current = current.getNext();
+        }
+        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
+    }
+
+    public int size() {
+        int count = 0;
+        Nodo<T> current = head;
+        while (current != null) {
+            count++;
+            current = current.getNext();
+        }
+        return count;
+    }
 }

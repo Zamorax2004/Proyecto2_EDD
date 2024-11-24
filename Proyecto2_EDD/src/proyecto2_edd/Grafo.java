@@ -9,7 +9,7 @@ public class Grafo {
 
     public Grafo() {
         System.setProperty("org.graphstream.ui", "swing");
-        graph = new MultiGraph("Family Tree");
+        graph = new MultiGraph("Arbol");
     }
 
     public void addFamilyMember(String name) {
@@ -29,6 +29,24 @@ public class Grafo {
             graph.display();
         }
     }
+    
+    public void buildFromTree(Tree tree) {
+        buildGraphRecursively(tree.getRoot());
+    }
 
-    // *********FALTA METODO PARA LEER EL JSON****************    
+    private void buildGraphRecursively(TreeNode node) {
+        if (node == null) return;
+
+        addFamilyMember(node.getPerson().getName());
+        ListaEnlazada<TreeNode> children = node.getChildren();
+        ListaEnlazada<TreeNode>.ListaIterator iterator = children.iterator();
+        while (iterator.hasNext()) {
+            TreeNode child = iterator.next();
+            addFamilyMember(child.getPerson().getName());
+            addRelationship(node.getPerson().getName(), child.getPerson().getName());
+            buildGraphRecursively(child);
+        }
+    }
+
+    //funcion que obtenga arbol con nombres en los nodos y los transforme en un grafo    
 }

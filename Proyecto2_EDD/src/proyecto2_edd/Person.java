@@ -33,6 +33,10 @@ public class Person {
         this.fate = fate;
     }
     
+    public Person(String name){
+        this.name = name;
+    }
+    
     
     public void addChild(String childName) {
         this.children.insertBegin(childName);

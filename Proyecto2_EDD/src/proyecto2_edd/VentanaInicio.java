@@ -51,8 +51,8 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         Title.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         Title.setForeground(new java.awt.Color(255, 255, 255));
-        Title.setText("Title");
-        jPanel1.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 100, 60));
+        Title.setText("Arbol Genealogico");
+        jPanel1.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 400, 60));
 
         next.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         next.setText("Next");
@@ -63,14 +63,15 @@ public class VentanaInicio extends javax.swing.JFrame {
         });
         jPanel1.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, 70, 30));
 
+        jFileChooser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jFileChooser.setText("Escoger archivo");
         jFileChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooserActionPerformed(evt);
             }
         });
-        jPanel1.add(jFileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, -1));
-        jPanel1.add(textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 120, -1));
+        jPanel1.add(jFileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 130, 30));
+        jPanel1.add(textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 262, 180, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto2_edd/game-of-thrones-iron-throne.jpg"))); // NOI18N
         jLabel1.setRequestFocusEnabled(false);
@@ -103,7 +104,7 @@ public class VentanaInicio extends javax.swing.JFrame {
             textField.setText(selectedFile.getName());
             FileStorage.getInstance().setFilename(selectedFile.getAbsolutePath());
         }else{
-            System.out.println("Error");
+            textField.setText("Seleccione un archivo!");
         }
     }//GEN-LAST:event_jFileChooserActionPerformed
 

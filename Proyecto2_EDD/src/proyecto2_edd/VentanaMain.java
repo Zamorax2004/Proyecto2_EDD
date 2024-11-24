@@ -16,6 +16,7 @@ public class VentanaMain extends javax.swing.JFrame {
     public VentanaMain(String fileName) {
         this.fileName = fileName;
         initComponents();
+        textArea.setEditable(false);
         if (fileName != null){
             handleJsonFile(fileName);
         }
@@ -32,15 +33,18 @@ public class VentanaMain extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        fileTest = new javax.swing.JTextField();
         showTree = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        verRegistro = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         nameList = new javax.swing.JList<>();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        nameSearch = new javax.swing.JButton();
+        mostrarAntepasados = new javax.swing.JButton();
+        titleSearch = new javax.swing.JButton();
+        generationList = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textArea = new javax.swing.JTextArea();
+        nameTextField = new javax.swing.JTextField();
+        titleTextField = new javax.swing.JTextField();
         BaratheonLabel = new javax.swing.JLabel();
         TargaryenLabel = new javax.swing.JLabel();
 
@@ -58,23 +62,21 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 150, 30));
 
-        fileTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileTestActionPerformed(evt);
-            }
-        });
-        jPanel1.add(fileTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 30, 110, -1));
-
         showTree.setText("Mostrar Arbol");
         showTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showTreeActionPerformed(evt);
             }
         });
-        jPanel1.add(showTree, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        jPanel1.add(showTree, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
-        jButton3.setText("Ver Registro");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        verRegistro.setText("Ver Registro");
+        verRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verRegistroActionPerformed(evt);
+            }
+        });
+        jPanel1.add(verRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         nameList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Nodo 1", "Nodo 2", "Nodo 3", "Nodo 4", "Nodo 5" };
@@ -83,29 +85,37 @@ public class VentanaMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(nameList);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 90, 220, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 240, 350));
 
-        jButton4.setText("Buscar por Nombre");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        nameSearch.setText("Buscar por Nombre");
+        nameSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                nameSearchActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        jPanel1.add(nameSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
-        jButton5.setText("Mostrar Antepasados");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        mostrarAntepasados.setText("Mostrar Antepasados");
+        mostrarAntepasados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                mostrarAntepasadosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+        jPanel1.add(mostrarAntepasados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
 
-        jButton6.setText("Buscar por Titulo");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
+        titleSearch.setText("Buscar por Titulo");
+        jPanel1.add(titleSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
 
-        jButton7.setText("Lista de Integrantes de una Generacion");
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
+        generationList.setText("Lista de Integrantes de una Generacion");
+        jPanel1.add(generationList, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, -1, -1));
+
+        textArea.setColumns(20);
+        textArea.setRows(5);
+        jScrollPane2.setViewportView(textArea);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 240, 90));
+        jPanel1.add(nameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 200, -1));
+        jPanel1.add(titleTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 200, -1));
 
         BaratheonLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto2_edd/game-of-thrones-house-baratheon (1).jpg"))); // NOI18N
         jPanel1.add(BaratheonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 420));
@@ -124,21 +134,25 @@ public class VentanaMain extends javax.swing.JFrame {
         v1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void fileTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileTestActionPerformed
-        fileTest.setText(fileName);
-    }//GEN-LAST:event_fileTestActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void mostrarAntepasadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarAntepasadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_mostrarAntepasadosActionPerformed
 
     private void showTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTreeActionPerformed
-        
+        Tree tree = new Tree();
+        tree.loadNamesFromJSON(fileName);
+        Grafo grafo = new Grafo();
+        grafo.buildFromTree(tree);
+        grafo.displayGraph();
     }//GEN-LAST:event_showTreeActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void nameSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_nameSearchActionPerformed
+
+    private void verRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_verRegistroActionPerformed
 
     public void handleJsonFile(String fileName){
         TargaryenLabel.setVisible(false);
@@ -187,16 +201,19 @@ public class VentanaMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BaratheonLabel;
     private javax.swing.JLabel TargaryenLabel;
-    private javax.swing.JTextField fileTest;
+    private javax.swing.JButton generationList;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton mostrarAntepasados;
     private javax.swing.JList<String> nameList;
+    private javax.swing.JButton nameSearch;
+    private javax.swing.JTextField nameTextField;
     private javax.swing.JButton showTree;
+    private javax.swing.JTextArea textArea;
+    private javax.swing.JButton titleSearch;
+    private javax.swing.JTextField titleTextField;
+    private javax.swing.JButton verRegistro;
     // End of variables declaration//GEN-END:variables
 }

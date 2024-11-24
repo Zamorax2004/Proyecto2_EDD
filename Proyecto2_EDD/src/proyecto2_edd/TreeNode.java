@@ -25,7 +25,10 @@ public class TreeNode {
     }
 
     public void addChild(TreeNode child) {
-        this.children.add(child);
+        if (children == null) {
+            children = new ListaEnlazada<>();
+        }
+        children.add(child);
     }
 
     // Getters

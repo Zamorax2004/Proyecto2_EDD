@@ -5,7 +5,7 @@
 package proyecto2_edd;
 
 import java.io.FileReader;
-import org.json.*;
+import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 
 
@@ -37,69 +37,13 @@ public class Tree {
             for (Object key : jsonObject.keySet()) {
                 String lineageName = (String) key; // Nombre de la casa
                 JSONArray members = (JSONArray) jsonObject.get(lineageName);
-
-                // Crear el árbol para este linaje
-                for (Object memberObj : members) {
-                    JSONObject memberData = (JSONObject) memberObj;
-                    parseAndAddMember(memberData);
-                }
             }
         } catch (Exception e) {
             System.err.println("Error al cargar el archivo JSON: " + e.getMessage());
         }
     }
 
-    // Método para analizar y añadir un miembro al árbol
-    private void parseAndAddMember(JSONObject memberData) {
-        // Extraer los datos del miembro
-        String name = memberData.keySet().iterator().next();
-        JSONArray attributes = (JSONArray) memberData.get(name);
-
-        String numeral = null, mote = null, title = null, father = null, mother = null, notes = null, fate = null;
-        ListaEnlazada<String> children = new ListaEnlazada<>();
-
-        for (Object attributeObj : attributes) {
-            JSONObject attribute = (JSONObject) attributeObj;
-
-            if (attribute.containsKey("Of his name")) numeral = (String) attribute.get("Of his name");
-            if (attribute.containsKey("Known throughout as")) mote = (String) attribute.get("Known throughout as");
-            if (attribute.containsKey("Held title")) title = (String) attribute.get("Held title");
-            if (attribute.containsKey("Born to")) {
-                if (father == null) father = (String) attribute.get("Born to");
-                else mother = (String) attribute.get("Born to");
-            }
-            if (attribute.containsKey("Father to")) {
-                JSONArray childrenArray = (JSONArray) attribute.get("Father to");
-                for (Object child : childrenArray) {
-                    children.add((String) child);
-                }
-            }
-            if (attribute.containsKey("Notes")) notes = (String) attribute.get("Notes");
-            if (attribute.containsKey("Fate")) fate = (String) attribute.get("Fate");
-        }
-
-        // Crear un nuevo objeto Person
-        Person person = new Person(name, numeral, mote, title, father, mother, notes, fate);
-        for (String child : children) person.addChild(child);
-
-        // Crear un nodo TreeNode
-        TreeNode newNode = new TreeNode(person);
-
-        // Añadir a los índices
-        if (name != null) nameIndex.put(name, newNode);
-        if (mote != null) moteIndex.put(mote, newNode);
-
-        // Establecer relaciones
-        if (father != null && nameIndex.containsKey(father)) {
-            TreeNode fatherNode = nameIndex.get(father);
-            fatherNode.addChild(
-                    newNode);
-            newNode.setParent(fatherNode);
-        } else if (root == null) {
-            // Si no tiene padre y no hay raíz, establecer como raíz
-            root = newNode;
-        }
-    }
+    
 
     // Método para buscar por nombre
     public TreeNode searchByName(String name) {
@@ -128,4 +72,60 @@ public class Tree {
         if (root == null) return "Árbol vacío";
         return "Raíz del árbol: " + root.toString();
     }
+    
+    public void loadNamesFromJSON(String jsonFilePath) {
+        try {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(jsonFilePath));
+            JSONObject jsonObject = (JSONObject) obj;
+
+            for (Object key : jsonObject.keySet()) {
+                String houseName = (String) key;
+                JSONArray members = (JSONArray) jsonObject.get(houseName);
+
+                for (Object memberObj : members) {
+                    JSONObject memberData = (JSONObject) memberObj;
+                    for (Object nameObj : memberData.keySet()) {
+                        String name = (String) nameObj;
+                        addName(name);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading JSON: " + e.getMessage());
+        }
+    }
+    
+    private void addName(String name) {
+        TreeNode newNode = new TreeNode(new Person(name));
+        if (root == null) {
+            root = newNode;
+        } else {
+            ListaEnlazada<TreeNode> queue = new ListaEnlazada<>();
+            queue.add(root);
+            while (!queue.isEmpty()) {
+                TreeNode current = queue.remove(0);
+                if (current.getChildren().isEmpty()) {
+                    current.addChild(newNode);
+                    newNode.setParent(current);
+                    break;
+                } else {
+                    for (int i = 0; i < current.getChildren().size(); i++) {
+                        queue.add(current.getChildren().get(i));
+                    }
+                }
+            }
+        }
+        nameIndex.put(name, newNode);
+    }
+    
+    public TreeNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(TreeNode root) {
+        this.root = root;
+    }
+    
+    
 }
