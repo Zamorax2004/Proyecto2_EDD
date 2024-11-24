@@ -5,6 +5,7 @@
 package proyecto2_edd;
 
 import java.io.FileReader;
+import java.util.Enumeration;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 
@@ -43,13 +44,15 @@ public class Tree {
         }
     }
 
-    public ListaEnlazada<String> getAllNames(){
-        ListaEnlazada<String> names = new ListaEnlazada<>();
-        for (TreeNode node : nameIndex.values()){
-            names.add(node.getPerson().getName());
-        }
-        return names;
+    public ListaEnlazada<String> getAllNames() {
+    ListaEnlazada<String> names = new ListaEnlazada<>();
+    Enumeration<TreeNode> nodes = nameIndex.elements();
+    while (nodes.hasMoreElements()) {
+        TreeNode node = nodes.nextElement();
+        names.add(node.getPerson().getName());
     }
+    return names;
+}
 
     // Método para buscar por nombre
     public TreeNode searchByName(String name) {
