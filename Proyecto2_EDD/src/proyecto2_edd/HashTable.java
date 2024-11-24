@@ -108,5 +108,47 @@ public class HashTable<K,V> {
         }
         return values;
     }
-    
+    public Enumeration<V> elements() {
+        return new Enumeration<V>() {
+            private int bucketIndex = 0;
+            private NodoHash<K, V> currentNode = getNextNode();
+
+            @Override
+            public boolean hasMoreElements() {
+                return currentNode != null;
+            }
+
+            @Override
+            public V nextElement() {
+                if (!hasMoreElements()) {
+                    throw new NoSuchElementException();
+                }
+                V value = currentNode.getValue();
+                currentNode = getNextNode();
+                return value;
+            }
+
+            private NodoHash<K, V> getNextNode() {
+                while (bucketIndex < buckets.length) {
+                    ListaEnlazada<NodoHash<K, V>> bucket = buckets[bucketIndex++];
+                    ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
+                    if (iterator.hasNext()) {
+                        return iterator.next();
+                    }
+                }
+                return null;
+            }
+        };
+    }
+
+    private NodoHash<K, V> findNode(ListaEnlazada<NodoHash<K, V>> bucket, K key) {
+        ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
+        while (iterator.hasNext()) {
+            NodoHash<K, V> nodo = iterator.next();
+            if (nodo.getKey().equals(key)) {
+                return nodo;
+            }
+        }
+        return null;
+    }
 }
