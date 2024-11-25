@@ -1,20 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyecto2_edd;
 
-/**
- *
- * @author yilup
- */
+
 public class NodoHash<K,V> {
     private K key;
     private V value;
+    private NodoHash<K,V> next;
 
     public NodoHash(K key, V value) {
         this.key = key;
         this.value = value;
+        this.next = null;
+    
     }
 
     public K getKey() {
@@ -28,8 +25,16 @@ public class NodoHash<K,V> {
     public void setValue(V value) {
         this.value = value;
     }
+    
+     public NodoHash<K, V> getNext() {
+        return next;
+    }
 
-    @Override
+    public void setNext(NodoHash<K, V> next) {
+        this.next = next;
+    }
+
+    
     public String toString() {
         return "{" + key + ": " + value + "}";
     }

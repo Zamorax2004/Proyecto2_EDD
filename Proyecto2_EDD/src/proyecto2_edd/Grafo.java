@@ -46,5 +46,30 @@ public class Grafo {
             addRelationship(node.getPerson().getName(), child.getPerson().getName());
             buildGraph(child);
         }
-    }    
+    }
+    
+    public void displayDescendants(TreeNode node) {
+    if (node == null) {
+        System.out.println("El nodo es nulo.");
+        return;
+    }
+
+    Cola<TreeNode> cola = new Cola<>(); // Usamos nuestra implementación personalizada de cola
+    cola.enqueue(node);
+
+    System.out.println("Descendientes de " + node.getPerson().getName() + ":");
+
+    while (!cola.isEmpty()) {
+        TreeNode actual = cola.dequeue();
+        for (TreeNode hijo : actual.getChildren()) {
+            System.out.println("- " + hijo.getPerson().getName());
+            cola.enqueue(hijo); // Agregar los hijos a la cola
+        }
+    }
+}
+
+
+
+
+
 }

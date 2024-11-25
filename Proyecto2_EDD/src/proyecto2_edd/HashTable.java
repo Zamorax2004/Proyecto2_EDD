@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyecto2_edd;
 
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-/**
- *
- * @author yilup
- */
+
 public class HashTable<K,V> {
     private static final int DEFAULT_CAPACITY = 100;
     private ListaEnlazada<NodoHash<K, V>>[] buckets;
@@ -97,16 +91,18 @@ public class HashTable<K,V> {
         return size == 0;
     }
     
-    public ListaEnlazada<V> values() {
-        ListaEnlazada<V> values = new ListaEnlazada<>();
+   public ListaEnlazada<NodoHash<K, V>> values() {
+        ListaEnlazada<NodoHash<K, V>> values = new ListaEnlazada<>();
         for (ListaEnlazada<NodoHash<K, V>> bucket : buckets) {
-            ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
-            while (iterator.hasNext()) {
-                values.add(iterator.next().getValue());
+            NodoHash<K, V> current = bucket.getHead(); // Suponiendo que tienes un método getHead()
+            while (current != null) {
+                values.add(current); // Agregar el nodo completo
+                current = current.getNext(); // Mover al siguiente nodo
             }
         }
-        return values;
+        return values; // Devuelve todos los nodos en una lista enlazada
     }
+    
     public Enumeration<V> elements() {
         return new Enumeration<V>() {
             private int bucketIndex = 0;
@@ -150,4 +146,7 @@ public class HashTable<K,V> {
         }
         return null;
     }
+
+
+
 }
