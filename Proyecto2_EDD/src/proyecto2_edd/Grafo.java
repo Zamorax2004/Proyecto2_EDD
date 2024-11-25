@@ -54,22 +54,26 @@ public class Grafo {
         return;
     }
 
-    Cola<TreeNode> cola = new Cola<>(); // Usamos nuestra implementación personalizada de cola
+    Cola<TreeNode> cola = new Cola<>(); 
     cola.enqueue(node);
 
     System.out.println("Descendientes de " + node.getPerson().getName() + ":");
 
     while (!cola.isEmpty()) {
         TreeNode actual = cola.dequeue();
-        for (TreeNode hijo : actual.getChildren()) {
+        ListaEnlazada<TreeNode> children = actual.getChildren();
+        Nodo<TreeNode> childNode = children.getHead();
+        while (childNode != null) {
+            TreeNode hijo = childNode.getData();
             System.out.println("- " + hijo.getPerson().getName());
-            cola.enqueue(hijo); // Agregar los hijos a la cola
+            cola.enqueue(hijo); 
+            childNode = childNode.getNext();
         }
     }
+ }
 }
 
 
 
 
 
-}

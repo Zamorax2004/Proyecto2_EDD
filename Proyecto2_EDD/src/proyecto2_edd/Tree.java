@@ -160,23 +160,25 @@ public class Tree {
         return null;
     }
 
-    return node; // Retorna el nodo desde donde inicia la descendencia
+    return node; 
    }
     
-   public ListaEnlazada<TreeNode> searchByTitle(String title) {
+   
+    public ListaEnlazada<TreeNode> searchByTitle(String title) {
     ListaEnlazada<TreeNode> results = new ListaEnlazada<>();
 
-    // Asegúrate de que nameIndex.values() devuelve ListaEnlazada<NodoHash<String, TreeNode>>
+
     ListaEnlazada<NodoHash<String, TreeNode>> nodos = nameIndex.values();
     
-    // Iterar sobre los nodosNodoHash<String, TreeNode> current = nodos.getHead()
-    NodoHash<String, TreeNode> current = nodos.getHead(); // Suponiendo que tienes un método getHead()
+   
+    Nodo<NodoHash<String, TreeNode>> current = nodos.getHead(); 
     while (current != null) {
-        TreeNode node = current.getValue();
+        NodoHash<String, TreeNode> nodoHash = current.getData();
+        TreeNode node = nodoHash.getValue();
         if (node.getPerson().getTitle() != null && node.getPerson().getTitle().equals(title)) {
             results.add(node);
         }
-        current = current.getNext(); // Mover al siguiente nodo
+        current = current.getNext(); 
     }
 
     return results;
@@ -191,10 +193,10 @@ public class Tree {
     }
 
     Cola<TreeNode> cola = new Cola<>();
-    Cola<Integer> niveles = new Cola<>(); // Para rastrear el nivel de cada nodo
+    Cola<Integer> niveles = new Cola<>(); 
 
     cola.enqueue(root);
-    niveles.enqueue(0); // La raíz está en la generación 0
+    niveles.enqueue(0); 
 
     while (!cola.isEmpty()) {
         TreeNode actual = cola.dequeue();
@@ -204,14 +206,17 @@ public class Tree {
             miembros.add(actual);
         }
 
-        for (TreeNode hijo : actual.getChildren()) {
+        ListaEnlazada<TreeNode> children = actual.getChildren();
+        Nodo<TreeNode> childNode = children.getHead();
+        while (childNode != null) {
+            TreeNode hijo = childNode.getData();
             cola.enqueue(hijo);
-            niveles.enqueue(nivelActual + 1); // Los hijos están en la siguiente generación
+            niveles.enqueue(nivelActual + 1);
+            childNode = childNode.getNext();
         }
     }
 
-
-
-
-
+    return miembros;
 }
+}
+   

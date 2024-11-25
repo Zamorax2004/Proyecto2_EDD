@@ -92,16 +92,17 @@ public class HashTable<K,V> {
     }
     
    public ListaEnlazada<NodoHash<K, V>> values() {
-        ListaEnlazada<NodoHash<K, V>> values = new ListaEnlazada<>();
-        for (ListaEnlazada<NodoHash<K, V>> bucket : buckets) {
-            NodoHash<K, V> current = bucket.getHead(); // Suponiendo que tienes un método getHead()
-            while (current != null) {
-                values.add(current); // Agregar el nodo completo
-                current = current.getNext(); // Mover al siguiente nodo
-            }
+    ListaEnlazada<NodoHash<K, V>> values = new ListaEnlazada<>();
+    for (ListaEnlazada<NodoHash<K, V>> bucket : buckets) {
+        Nodo<NodoHash<K, V>> current = bucket.getHead(); // Suponiendo que tienes un método getHead()
+        while (current != null) {
+            NodoHash<K, V> nodoHash = current.getData(); // Unpack the nested node
+            values.add(nodoHash); // Agregar el nodo completo
+            current = current.getNext(); // Mover al siguiente nodo
         }
-        return values; // Devuelve todos los nodos en una lista enlazada
     }
+    return values; // Devuelve todos los nodos en una lista enlazada
+}
     
     public Enumeration<V> elements() {
         return new Enumeration<V>() {
