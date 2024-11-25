@@ -44,7 +44,6 @@ public class TreeNode {
         return children;
     }
 
-    // Representación
     @Override
     public String toString() {
         return person.toString();

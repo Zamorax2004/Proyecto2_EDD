@@ -19,8 +19,6 @@ public class HashTable<K,V> {
     public HashTable(int capacity) {
         this.buckets = new ListaEnlazada[capacity];
         this.size = 0;
-
-        // Inicializar las listas enlazadas
         for (int i = 0; i < capacity; i++) {
             buckets[i] = new ListaEnlazada<>();
         }
@@ -39,8 +37,6 @@ public class HashTable<K,V> {
         if (key == null) throw new IllegalArgumentException("La clave no puede ser nula.");
         int index = getBucketIndex(key);
         ListaEnlazada<NodoHash<K, V>> bucket = buckets[index];
-
-        // Buscar si la clave ya existe
         ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
         while (iterator.hasNext()) {
             NodoHash<K, V> nodo = iterator.next();
@@ -49,7 +45,6 @@ public class HashTable<K,V> {
                 return;
             }
         }
-
         bucket.add(new NodoHash<>(key, value));
         size++;
     }
@@ -58,7 +53,6 @@ public class HashTable<K,V> {
         if (key == null) throw new IllegalArgumentException("La clave no puede ser nula.");
         int index = getBucketIndex(key);
         ListaEnlazada<NodoHash<K, V>> bucket = buckets[index];
-
         ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
         while (iterator.hasNext()) {
             NodoHash<K, V> nodo = iterator.next();
@@ -73,7 +67,6 @@ public class HashTable<K,V> {
         if (key == null) throw new IllegalArgumentException("La clave no puede ser nula.");
         int index = getBucketIndex(key);
         ListaEnlazada<NodoHash<K, V>> bucket = buckets[index];
-
         ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
         while (iterator.hasNext()) {
             NodoHash<K, V> nodo = iterator.next();
