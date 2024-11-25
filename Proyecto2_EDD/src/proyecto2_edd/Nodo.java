@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyecto2_edd;
 
-/**
- *
- * @author yilup
- */
+
 public class Nodo<T> {
-    private T data;          // Dato almacenado
-    private Nodo<T> next;    // Referencia al siguiente nodo
+    private T data;          
+    private Nodo<T> next;    
 
     public Nodo(T data) {
         this.data = data;

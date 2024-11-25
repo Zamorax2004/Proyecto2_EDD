@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyecto2_edd;
 
 import java.io.FileReader;
@@ -11,20 +8,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
-/**
- *
- * @author yilup
- */
+
 public class Tree {
-    private TreeNode root; // Raíz del árbol genealógico
-    private HashTable<String, TreeNode> nameIndex; // Índice para búsqueda rápida por nombre
-    private HashTable<String, TreeNode> moteIndex; // Índice para búsqueda rápida por mote
+    private TreeNode root; 
+    private HashTable<String, TreeNode> nameIndex; 
+    private HashTable<String, TreeNode> moteIndex; 
 
     // Constructor
     public Tree() {
         this.root = null;
-        this.nameIndex = new HashTable<>(100); // Tamaño inicial ajustable
-        this.moteIndex = new HashTable<>(100); // Tamaño inicial ajustable
+        this.nameIndex = new HashTable<>(100); 
+        this.moteIndex = new HashTable<>(100); 
     }
 
     // Método para cargar un árbol desde un archivo JSON
@@ -160,4 +154,72 @@ public class Tree {
     public void setRoot(TreeNode root) {
         this.root = root;
     }
+    
+    public TreeNode getSubtree(String name) {
+    TreeNode node = searchByName(name);
+
+    if (node == null) {
+        System.err.println("El miembro con el nombre '" + name + "' no fue encontrado.");
+        return null;
+    }
+
+    return node; 
+   }
+    
+   
+    public ListaEnlazada<TreeNode> searchByTitle(String title) {
+    ListaEnlazada<TreeNode> results = new ListaEnlazada<>();
+
+
+    ListaEnlazada<NodoHash<String, TreeNode>> nodos = nameIndex.values();
+    
+   
+    Nodo<NodoHash<String, TreeNode>> current = nodos.getHead(); 
+    while (current != null) {
+        NodoHash<String, TreeNode> nodoHash = current.getData();
+        TreeNode node = nodoHash.getValue();
+        if (node.getPerson().getTitle() != null && node.getPerson().getTitle().equals(title)) {
+            results.add(node);
+        }
+        current = current.getNext(); 
+    }
+
+    return results;
+    
+   }
+   
+   public ListaEnlazada<TreeNode> getMembersByGeneration(int generation) {
+    ListaEnlazada<TreeNode> miembros = new ListaEnlazada<>();
+    if (root == null) {
+        System.out.println("El árbol está vacío.");
+        return miembros;
+    }
+
+    Cola<TreeNode> cola = new Cola<>();
+    Cola<Integer> niveles = new Cola<>(); 
+
+    cola.enqueue(root);
+    niveles.enqueue(0); 
+
+    while (!cola.isEmpty()) {
+        TreeNode actual = cola.dequeue();
+        int nivelActual = niveles.dequeue();
+
+        if (nivelActual == generation) {
+            miembros.add(actual);
+        }
+
+        ListaEnlazada<TreeNode> children = actual.getChildren();
+        Nodo<TreeNode> childNode = children.getHead();
+        while (childNode != null) {
+            TreeNode hijo = childNode.getData();
+            cola.enqueue(hijo);
+            niveles.enqueue(nivelActual + 1);
+            childNode = childNode.getNext();
+        }
+    }
+
+    return miembros;
 }
+}
+   

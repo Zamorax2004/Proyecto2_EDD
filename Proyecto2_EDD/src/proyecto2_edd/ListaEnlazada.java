@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyecto2_edd;
 
-/**
- *
- * @author yilup
- */
 public class ListaEnlazada<T> {
      private Nodo<T> head;
+     private int size =0;
 
     // Añadir un elemento al inicio de la lista
     public void add(T data) {
@@ -119,4 +113,9 @@ public class ListaEnlazada<T> {
             current = current.getNext();
         }
     }
+    
+    public void clear() {
+    head = null; 
+    size = 0;    
+}
 }

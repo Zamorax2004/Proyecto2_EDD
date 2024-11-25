@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyecto2_edd;
 
-/**
- *
- * @author yilup
- */
+
 public class TreeNode {
     private Person person; // Datos de la persona representada en este nodo
     private TreeNode parent; // Nodo padre
@@ -44,7 +38,7 @@ public class TreeNode {
         return children;
     }
 
-    @Override
+
     public String toString() {
         return person.toString();
     }

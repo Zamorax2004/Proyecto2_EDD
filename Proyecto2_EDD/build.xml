@@ -1,4 +1,4 @@
-<project name="Proyecto2_EDD" default="compile" basedir=".">
+<project name="Proyecto2_EDD" default="run" basedir=".">
     <description>
         Build file for Proyecto2_EDD
     </description>
@@ -12,11 +12,6 @@
     <path id="classpath">
         <fileset dir="${lib}">
             <include name="**/*.jar"/>
-        </fileset>
-        <!-- Add NetBeans libraries -->
-        <fileset dir="C:/Program Files/NetBeans-<version>/platform/modules">
-            <include name="org-netbeans-modules-java-source.jar"/>
-            <!-- Include other required JAR files here -->
         </fileset>
     </path>
 
@@ -35,12 +30,23 @@
         <mkdir dir="${dist}/lib"/>
 
         <!-- Copy the built JAR file and dependencies to the distribution directory -->
-        <jar destfile="${dist}/Proyecto2_EDD.jar" basedir="${build}"/>
+        <jar destfile="${dist}/Proyecto2_EDD.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="proyecto2_edd.Main"/>
+            </manifest>
+        </jar>
         <copy todir="${dist}/lib">
             <fileset dir="${lib}">
                 <include name="**/*.jar"/>
             </fileset>
         </copy>
+    </target>
+
+    <target name="run" depends="dist">
+        <!-- Run the compiled project with all required libraries in the classpath -->
+        <java fork="true" classname="proyecto2_edd.Main" classpathref="classpath">
+            <arg line=""/><!-- Add any arguments here if necessary -->
+        </java>
     </target>
 
     <target name="clean">
