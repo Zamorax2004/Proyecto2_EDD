@@ -6,7 +6,8 @@ package proyecto2_edd;
 
 import java.io.FileReader;
 import java.util.Enumeration;
-import org.json.simple.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
@@ -57,6 +58,7 @@ public class Tree {
                             node.setParent(parentNode);
                         }
                     }
+                    String uniqueName = name + " (" + mote + ")";
                     nameIndex.put(name, node);
                     moteIndex.put(mote, node);
                 }
@@ -71,7 +73,8 @@ public class Tree {
     Enumeration<TreeNode> nodes = nameIndex.elements();
     while (nodes.hasMoreElements()) {
         TreeNode node = nodes.nextElement();
-        names.add(node.getPerson().getName());
+        String uniqueName = node.getPerson().getName() + " (" + node.getPerson().getAlias() + ")";
+        names.add(uniqueName);
     }
     return names;
 }

@@ -10,11 +10,11 @@ public class JsonToHashMap {
     
     public static void main(String[] args) {
         String file = FileStorage.getInstance().getFilename();
-        HashMap<String, Person> familyMap = new HashMap<>();
+        HashTable<String, Person> familyMap = new HashTable<>();
         processFile(file, familyMap);
     }
 
-    public static void processFile(String filePath, HashMap<String, Person> familyMap) {
+    public static void processFile(String filePath, HashTable<String, Person> familyMap) {
         try (FileReader reader = new FileReader(filePath)) {
             JSONTokener tokener = new JSONTokener(reader);
             JSONObject jsonObject = new JSONObject(tokener);
@@ -24,7 +24,7 @@ public class JsonToHashMap {
         }
     }
 
-    private static void processHouse(JSONArray members, HashMap<String, Person> familyMap) {
+    private static void processHouse(JSONArray members, HashTable<String, Person> familyMap) {
         for (int i = 0; i < members.length(); i++) {
             JSONObject member = members.getJSONObject(i);
             String memberName = member.keys().next();
