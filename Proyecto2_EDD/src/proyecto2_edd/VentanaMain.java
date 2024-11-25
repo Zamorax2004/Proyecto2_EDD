@@ -121,6 +121,12 @@ public class VentanaMain extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 260, 110));
         jPanel1.add(nameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 200, -1));
+
+        titleTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                titleTextFieldActionPerformed(evt);
+            }
+        });
         jPanel1.add(titleTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 200, -1));
 
         resetList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -175,8 +181,12 @@ public class VentanaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_verRegistroActionPerformed
 
     private void resetListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetListActionPerformed
-        // TODO add your handling code here:
+        loadNamesIntoList();
     }//GEN-LAST:event_resetListActionPerformed
+
+    private void titleTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_titleTextFieldActionPerformed
 
     public void handleJsonFile(String fileName){
         TargaryenLabel.setVisible(false);
@@ -188,39 +198,43 @@ public class VentanaMain extends javax.swing.JFrame {
         }
     }
     
-    public void loadNamesIntoList(){
-        tree = new Tree();
-        tree.loadFromJSON();
-        ListaEnlazada<String> names = tree.getAllNames();
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        Nodo<String> current = names.getHead();
-        while (current != null){
-            listModel.addElement(current.getData());
-            current = current.getNext();
-        }
-        nameList.setModel(listModel);
-        nameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    public void loadNamesIntoList() {
+    tree = new Tree();
+    tree.loadNamesFromJSON(fileName);
+    ListaEnlazada<String> namesAndAliases = tree.getAllNamesAndAliases();
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    Nodo<String> current = namesAndAliases.getHead();
+    while (current != null) {
+        listModel.addElement(current.getData());
+        current = current.getNext();
     }
+    nameList.setModel(listModel);
+    nameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+}
     
-    public void displayPersonInfo(String name){
-        TreeNode node = tree.searchByName(name);
-        if (node != null){
-            Person person = node.getPerson();
-            StringBuilder info = new StringBuilder();
-            info.append("Name: ").append(person.getName()).append("\n");
-            info.append("Numeral: ").append(person.getNumeral()).append("\n");
-            info.append("Alias: ").append(person.getAlias()).append("\n");
-            info.append("Title: ").append(person.getTitle()).append("\n");
-            info.append("Father: ").append(person.getParent()).append("\n");
-            info.append("Mother: ").append(person.getMother()).append("\n");
-            info.append("Children: ").append(person.getChildren()).append("\n");
-            info.append("Notes: ").append(person.getNotes()).append("\n");
-            info.append("Fate: ").append(person.getFate()).append("\n");
-            textArea.setText(info.toString());
-        }else{
-            textArea.setText("Error");
+    public void displayPersonInfo(String name) {
+    TreeNode node = tree.searchByName(name);
+    if (node != null) {
+        StringBuilder info = new StringBuilder();
+        while (node != null) {
+            info.append("Name: ").append(node.getPerson().getName()).append("\n");
+            info.append("Numeral: ").append(node.getPerson().getNumeral()).append("\n");
+            info.append("Alias: ").append(node.getPerson().getAlias()).append("\n");
+            info.append("Title: ").append(node.getPerson().getTitle()).append("\n");
+            info.append("Father: ").append(node.getPerson().getParent()).append("\n");
+            info.append("Mother: ").append(node.getPerson().getMother()).append("\n");
+            info.append("Children: ").append(node.getPerson().getChildren()).append("\n");
+            info.append("Notes: ").append(node.getPerson().getNotes()).append("\n");
+            info.append("Fate: ").append(node.getPerson().getFate()).append("\n");
+            info.append("\n---\n");
+            node = node.getNext();
         }
+        textArea.setText(info.toString());
+    } else {
+        textArea.setText("Error");
     }
+}
+    
     /**
      * @param args the command line arguments
      */

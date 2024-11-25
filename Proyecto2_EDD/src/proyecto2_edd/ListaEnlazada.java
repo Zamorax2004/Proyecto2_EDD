@@ -118,4 +118,15 @@ public class ListaEnlazada<T> {
     head = null; 
     size = 0;    
 }
+    
+    public boolean contains(T data) {
+    Nodo<T> current = head;
+    while (current != null) {
+        if (current.getData().equals(data)) {
+            return true;
+        }
+        current = current.getNext();
+    }
+    return false;
+}
 }

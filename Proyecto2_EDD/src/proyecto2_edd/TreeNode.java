@@ -6,11 +6,13 @@ public class TreeNode {
     private Person person; // Datos de la persona representada en este nodo
     private TreeNode parent; // Nodo padre
     private ListaEnlazada<TreeNode> children; // Hijos del nodo
+    private TreeNode next;
 
     // Constructor
     public TreeNode(Person person) {
         this.person = person;
         this.children = new ListaEnlazada<>();
+        this.next = null;
     }
 
     // Métodos para gestionar relaciones
@@ -38,6 +40,13 @@ public class TreeNode {
         return children;
     }
 
+    public TreeNode getNext() {
+        return next;
+    }
+
+    public void setNext(TreeNode next) {
+        this.next = next;
+    }
 
     public String toString() {
         return person.toString();

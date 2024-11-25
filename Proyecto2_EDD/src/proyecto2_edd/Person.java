@@ -9,7 +9,7 @@ public class Person {
     private String title; // Título nobiliario
     private String father; // Nombre del padre
     private String mother; // Nombre de la madre
-    private List children; // Nombres de los hijos
+    private ListaEnlazada children; // Nombres de los hijos
     private String notes; // Notas sobre su vida
     private String fate; // Comentarios sobre su destino o muerte
 
@@ -22,7 +22,7 @@ public class Person {
         this.title = title;
         this.father = father;
         this.mother = mother;
-        this.children = new List();
+        this.children = new ListaEnlazada();
         this.notes = notes;
         this.fate = fate;
     }
@@ -33,7 +33,7 @@ public class Person {
     
     
     public void addChild(String childName) {
-        this.children.insertBegin(childName);
+        this.children.add(childName);
     }
 
     // Getters
@@ -61,7 +61,7 @@ public class Person {
         return mother;
     }
 
-    public List getChildren() {
+    public ListaEnlazada getChildren() {
         return children;
     }
 

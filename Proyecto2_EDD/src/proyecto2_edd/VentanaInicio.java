@@ -51,7 +51,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         Title.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         Title.setForeground(new java.awt.Color(255, 255, 255));
-        Title.setText("Arbol Genealogico");
+        Title.setText("Arbol Genealógico");
         jPanel1.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 400, 60));
 
         next.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

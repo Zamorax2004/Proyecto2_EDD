@@ -23,65 +23,75 @@ public class Tree {
 
     // Método para cargar un árbol desde un archivo JSON
     public void loadFromJSON() {
-        try {
-            String jsonFilePath = FileStorage.getInstance().getFilename();
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(new FileReader(jsonFilePath));
-            JSONObject jsonObject = (JSONObject) obj;
-            for (Object key : jsonObject.keySet()) {
-                String lineageName = (String) key;
-                JSONArray members = (JSONArray) jsonObject.get(lineageName);
-                for (Object memberObj : members) {
-                    JSONObject memberData = (JSONObject) memberObj;
-                    String name = (String) memberData.get("name");
-                    String numeral = (String) memberData.get("numeral");
-                    String mote = (String) memberData.get("mote");
-                    String title = (String) memberData.get("title");
-                    String father = (String) memberData.get("father");
-                    String mother = (String) memberData.get("mother");
-                    String notes = (String) memberData.get("notes");
-                    String fate = (String) memberData.get("fate");
-                    Person person = new Person(name, numeral, mote, title, father, mother, notes, fate);
-                    TreeNode node = new TreeNode(person);
-                    if (root == null) {
-                        root = node;
-                    } else {
-                        TreeNode parentNode = nameIndex.get(father);
-                        if (parentNode != null) {
-                            parentNode.addChild(node);
-                            node.setParent(parentNode);
-                        }
+    try {
+        String jsonFilePath = FileStorage.getInstance().getFilename();
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(jsonFilePath));
+        JSONObject jsonObject = (JSONObject) obj;
+        for (Object key : jsonObject.keySet()) {
+            String lineageName = (String) key;
+            JSONArray members = (JSONArray) jsonObject.get(lineageName);
+            for (Object memberObj : members) {
+                JSONObject memberData = (JSONObject) memberObj;
+                String name = (String) memberData.get("name");
+                String numeral = (String) memberData.get("numeral");
+                String mote = (String) memberData.get("mote");
+                String title = (String) memberData.get("title");
+                String father = (String) memberData.get("father");
+                String mother = (String) memberData.get("mother");
+                String notes = (String) memberData.get("notes");
+                String fate = (String) memberData.get("fate");
+                Person person = new Person(name, numeral, mote, title, father, mother, notes, fate);
+                TreeNode node = new TreeNode(person);
+                if (root == null) {
+                    root = node;
+                } else {
+                    TreeNode parentNode = nameIndex.get(father);
+                    if (parentNode != null) {
+                        parentNode.addChild(node);
+                        node.setParent(parentNode);
                     }
-                    String uniqueName = name + " (" + mote + ")";
-                    nameIndex.put(name, node);
-                    moteIndex.put(mote, node);
                 }
+                String nameKey = name + (mote != null ? " (" + mote + ")" : "");
+                addToIndex(nameIndex, nameKey, node);
+                addToIndex(moteIndex, mote, node);
             }
-        } catch (Exception e) {
-            System.err.println("Error al cargar el archivo JSON: " + e.getMessage());
         }
+    } catch (Exception e) {
+        System.err.println("Error al cargar el archivo JSON: " + e.getMessage());
     }
+}
 
     public ListaEnlazada<String> getAllNames() {
     ListaEnlazada<String> names = new ListaEnlazada<>();
     Enumeration<TreeNode> nodes = nameIndex.elements();
     while (nodes.hasMoreElements()) {
         TreeNode node = nodes.nextElement();
-        String uniqueName = node.getPerson().getName() + " (" + node.getPerson().getAlias() + ")";
-        names.add(uniqueName);
+        while (node != null) {
+            names.add(node.getPerson().getName());
+            node = node.getNext();
+        }
     }
     return names;
 }
 
     // Método para buscar por nombre
     public TreeNode searchByName(String name) {
-        return nameIndex.get(name);
+    TreeNode node = nameIndex.get(name);
+    while (node != null && !node.getPerson().getName().equals(name)) {
+        node = node.getNext();
     }
+    return node;
+}
 
     // Método para buscar por mote
     public TreeNode searchByMote(String mote) {
-        return moteIndex.get(mote);
+    TreeNode node = moteIndex.get(mote);
+    while (node != null && !node.getPerson().getAlias().equals(mote)) {
+        node = node.getNext();
     }
+    return node;
+}
 
     // Mostrar antepasados
     public ListaEnlazada<TreeNode> getAncestors(TreeNode node) {
@@ -120,7 +130,7 @@ public class Tree {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error loading JSON: " + e.getMessage());
+            System.err.println("Error cargando JSON: " + e.getMessage());
         }
     }
     
@@ -220,6 +230,43 @@ public class Tree {
     }
 
     return miembros;
+}
+   
+   public ListaEnlazada<String> getAllAliases() {
+    ListaEnlazada<String> aliases = new ListaEnlazada<>();
+    Enumeration<TreeNode> nodes = moteIndex.elements();
+    while (nodes.hasMoreElements()) {
+        TreeNode node = nodes.nextElement();
+        String alias = node.getPerson().getAlias();
+        if (alias != null && !alias.isEmpty()) {
+            aliases.add(alias);
+        }
+    }
+    return aliases;
+}
+   
+   public ListaEnlazada<String> getAllNamesAndAliases() {
+    ListaEnlazada<String> namesAndAliases = getAllNames();
+    ListaEnlazada<String> aliases = getAllAliases();
+    Nodo<String> currentAlias = aliases.getHead();
+    while (currentAlias != null) {
+        namesAndAliases.add(currentAlias.getData());
+        currentAlias = currentAlias.getNext();
+    }
+    return namesAndAliases;
+}
+   
+   private void addToIndex(HashTable<String, TreeNode> index, String key, TreeNode node) {
+    TreeNode existingNode = index.get(key);
+    if (existingNode == null) {
+        index.put(key, node);
+    } else {
+        // Handle collisions by maintaining a linked list of nodes with the same key
+        while (existingNode.getNext() != null) {
+            existingNode = existingNode.getNext();
+        }
+        existingNode.setNext(node);
+    }
 }
 }
    

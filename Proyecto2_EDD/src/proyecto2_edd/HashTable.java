@@ -28,20 +28,26 @@ public class HashTable<K,V> {
     }
 
     public void put(K key, V value) {
-        if (key == null) throw new IllegalArgumentException("La clave no puede ser nula.");
-        int index = getBucketIndex(key);
-        ListaEnlazada<NodoHash<K, V>> bucket = buckets[index];
-        ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
-        while (iterator.hasNext()) {
-            NodoHash<K, V> nodo = iterator.next();
-            if (nodo.getKey().equals(key)) {
-                nodo.setValue(value);
-                return;
-            }
-        }
-        bucket.add(new NodoHash<>(key, value));
-        size++;
+    if (key == null) {
+        System.err.println("La clave no puede ser nula.");
+        return;
     }
+    int index = getBucketIndex(key);
+    ListaEnlazada<NodoHash<K, V>> bucket = buckets[index];
+
+    // Buscar si la clave ya existe
+    ListaEnlazada<NodoHash<K, V>>.ListaIterator iterator = bucket.iterator();
+    while (iterator.hasNext()) {
+        NodoHash<K, V> nodo = iterator.next();
+        if (nodo.getKey().equals(key)) {
+            nodo.setValue(value);
+            return;
+        }
+    }
+
+    bucket.add(new NodoHash<>(key, value));
+    size++;
+}
 
     public V get(K key) {
         if (key == null) throw new IllegalArgumentException("La clave no puede ser nula.");
@@ -140,7 +146,5 @@ public class HashTable<K,V> {
         }
         return null;
     }
-
-
-
+    
 }
